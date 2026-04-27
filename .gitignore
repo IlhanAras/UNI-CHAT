@@ -1,0 +1,33 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+node_modules/
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# .env.production git'te takip ediliyor (repo private olmalı!)
+# Repo public ise bu satırı açarak tekrar gizle:
+# .env.production
+hacettepe_index/kv_store_doc_status.json
+hacettepe_index/kv_store_full_docs.json
+hacettepe_index/kv_store_text_chunks.json
+hacettepe_index/vdb_chunks.json
+hacettepe_index/vdb_entities.json
+hacettepe_index/vdb_relationships.json
+.claude/settings.local.json
+hacettepe_index/graph_chunk_entity_relation.graphml
+.gitignore
+.env
