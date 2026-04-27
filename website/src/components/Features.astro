@@ -1,0 +1,125 @@
+---
+const modes = [
+  {
+    name: 'Naive',
+    desc: 'Direct vector similarity over raw chunks — the baseline.',
+    use: 'Quick keyword lookups',
+    color: 'amber',
+    icon: '◯',
+  },
+  {
+    name: 'Local',
+    desc: 'Entity-level retrieval focused on specific concepts in the graph.',
+    use: 'Targeted “what does X mean?” questions',
+    color: 'cyan',
+    icon: '◉',
+  },
+  {
+    name: 'Global',
+    desc: 'Community-level summaries for broad, high-level questions.',
+    use: 'Overview-style queries about a regulation area',
+    color: 'magenta',
+    icon: '◈',
+  },
+  {
+    name: 'Hybrid',
+    desc: 'Combines local + global signals for the best dual-context answer.',
+    use: 'Default — works for almost everything',
+    color: 'violet',
+    icon: '◆',
+  },
+];
+
+const colorMap: Record<string, { text: string; bg: string; ring: string }> = {
+  cyan: { text: 'text-accent-cyan', bg: 'bg-accent-cyan/10', ring: 'ring-accent-cyan/30' },
+  magenta: { text: 'text-accent-magenta', bg: 'bg-accent-magenta/10', ring: 'ring-accent-magenta/30' },
+  violet: { text: 'text-accent-violet', bg: 'bg-accent-violet/10', ring: 'ring-accent-violet/30' },
+  amber: { text: 'text-accent-amber', bg: 'bg-accent-amber/10', ring: 'ring-accent-amber/30' },
+};
+
+const extras = [
+  {
+    title: 'Petition System',
+    body: 'Browse 66 official Hacettepe petition templates. Inline PDF preview powered by LibreOffice; download as editable DOCX.',
+    metric: '66 templates',
+  },
+  {
+    title: 'Dual-LLM Architecture',
+    body: 'Independent providers for graph construction (cost-optimized) and chat (quality-optimized). Switch between Ollama, OpenAI, Gemini, DeepSeek without rebuilding.',
+    metric: '4 providers',
+  },
+  {
+    title: 'Incremental Ingestion',
+    body: 'Hash-based change detection — only modified documents are re-processed. Add new regulations without rebuilding the entire graph.',
+    metric: 'O(Δ) updates',
+  },
+  {
+    title: 'Workspace Isolation',
+    body: 'Multiple knowledge bases coexist on a single deployment. Each department or faculty can maintain its own graph.',
+    metric: 'Multi-tenant',
+  },
+];
+---
+
+<section id="features" class="section-pad relative">
+  <div class="container-x">
+    <div class="reveal mx-auto max-w-3xl text-center">
+      <div class="section-eyebrow justify-center">
+        <span class="h-px w-8 bg-accent-amber"></span>
+        Features
+      </div>
+      <h2 class="section-title">
+        Four retrieval modes. <span class="text-gradient-hot">One unified interface.</span>
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-slate-300">
+        Different questions need different retrieval strategies. UNI-CHAT
+        exposes all four — plus the engineering goodies that make a real
+        production system.
+      </p>
+    </div>
+
+    <!-- Retrieval modes -->
+    <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {modes.map((m, i) => {
+        const c = colorMap[m.color];
+        return (
+          <div
+            class={`reveal glass-card glass-card-hover relative overflow-hidden p-6 ring-1 ${c.ring}`}
+            style={`transition-delay: ${i * 80}ms`}
+          >
+            <div class={`text-4xl ${c.text}`}>{m.icon}</div>
+            <h3 class="mt-4 font-display text-xl font-semibold">{m.name}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">{m.desc}</p>
+            <div class="mt-4 border-t border-white/10 pt-3">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Best for</div>
+              <div class={`mt-1 text-xs font-medium ${c.text}`}>{m.use}</div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Engineering features -->
+    <div class="mt-16 grid gap-6 md:grid-cols-2">
+      {extras.map((x, i) => (
+        <div
+          class="reveal glass-card glass-card-hover group flex items-start gap-5 p-7"
+          style={`transition-delay: ${i * 90}ms`}
+        >
+          <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-hac-red to-accent-magenta font-mono text-sm font-bold text-white">
+            {String(i + 1).padStart(2, '0')}
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3">
+              <h3 class="font-display text-lg font-semibold text-white">{x.title}</h3>
+              <span class="rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[10px] text-slate-300">
+                {x.metric}
+              </span>
+            </div>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">{x.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

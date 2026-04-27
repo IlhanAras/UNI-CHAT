@@ -1,0 +1,121 @@
+---
+const pillars = [
+  {
+    title: 'Knowledge Graph',
+    body: 'Entities and relations are extracted from every regulation, building a queryable graph that captures how rules reference, override, and depend on each other.',
+    color: 'cyan',
+  },
+  {
+    title: 'Hierarchical Norm Resolution',
+    body: 'When two rules conflict, the system applies the “lex specialis” principle — the more specific lower-level norm wins, mirroring how legal experts reason.',
+    color: 'magenta',
+  },
+  {
+    title: 'Source-Grounded Answers',
+    body: 'Every response is backed by the exact document and chunk it came from. No hallucinations, no untraceable claims.',
+    color: 'violet',
+  },
+];
+
+const colorClasses = {
+  cyan: { ring: 'ring-accent-cyan/40', glow: 'bg-accent-cyan/20', text: 'text-accent-cyan' },
+  magenta: { ring: 'ring-accent-magenta/40', glow: 'bg-accent-magenta/20', text: 'text-accent-magenta' },
+  violet: { ring: 'ring-accent-violet/40', glow: 'bg-accent-violet/20', text: 'text-accent-violet' },
+};
+---
+
+<section id="solution" class="section-pad relative">
+  <!-- Decorative gradient -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background: radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0,212,255,0.08), transparent);"
+  ></div>
+
+  <div class="container-x relative">
+    <div class="reveal mx-auto max-w-3xl text-center">
+      <div class="section-eyebrow justify-center">
+        <span class="h-px w-8 bg-accent-cyan"></span>
+        Our Solution
+      </div>
+      <h2 class="section-title">
+        A graph that <span class="text-gradient-cool">understands</span> the law.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-slate-300">
+        UNI-CHAT is built on <strong class="text-white">LightRAG</strong>, a
+        graph-augmented retrieval framework. We extended it with a
+        domain-specific norm-resolution layer for Turkish academic regulations.
+      </p>
+    </div>
+
+    <div class="mt-20 grid gap-8 lg:grid-cols-3">
+      {pillars.map((p, i) => {
+        const c = colorClasses[p.color as keyof typeof colorClasses];
+        return (
+          <div
+            class={`reveal relative glass-card glass-card-hover group overflow-hidden p-8 ring-1 ${c.ring}`}
+            style={`transition-delay: ${i * 120}ms`}
+          >
+            <div class={`pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full ${c.glow} blur-3xl transition-opacity duration-500 group-hover:opacity-150`}></div>
+            <div class={`font-mono text-xs uppercase tracking-[0.2em] ${c.text}`}>
+              0{i + 1} / 03
+            </div>
+            <h3 class="mt-4 font-display text-2xl font-semibold text-white">
+              {p.title}
+            </h3>
+            <p class="mt-4 text-sm leading-relaxed text-slate-300">
+              {p.body}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Hierarchy diagram -->
+    <div class="reveal mt-20 mx-auto max-w-4xl">
+      <div class="glass-card p-8 sm:p-10">
+        <div class="text-center font-mono text-xs uppercase tracking-[0.2em] text-accent-cyan">
+          Normative Hierarchy
+        </div>
+        <h3 class="mt-3 text-center font-display text-2xl font-semibold">
+          Lower norms override higher norms on specific cases
+        </h3>
+
+        <div class="mt-10 flex flex-col gap-4">
+          <!-- L3 -->
+          <div class="flex items-center gap-4">
+            <div class="grid w-20 shrink-0 place-items-center rounded-lg bg-ink-700 py-3 font-display text-2xl font-bold text-slate-400">
+              L3
+            </div>
+            <div class="flex-1 rounded-xl border border-white/10 bg-ink-800/50 p-4">
+              <div class="font-semibold text-slate-300">Council of Higher Education (YÖK)</div>
+              <div class="text-sm text-slate-500">Broadest scope · National regulations · 31 documents</div>
+            </div>
+          </div>
+          <!-- arrow -->
+          <div class="ml-10 text-accent-cyan">↓ overridden by</div>
+          <!-- L2 -->
+          <div class="flex items-center gap-4">
+            <div class="grid w-20 shrink-0 place-items-center rounded-lg bg-hac-red/30 py-3 font-display text-2xl font-bold text-hac-red-light ring-1 ring-hac-red-light/40">
+              L2
+            </div>
+            <div class="flex-1 rounded-xl border border-hac-red-light/20 bg-hac-red/10 p-4">
+              <div class="font-semibold text-white">Hacettepe University</div>
+              <div class="text-sm text-slate-400">University-wide regulations · 45 documents</div>
+            </div>
+          </div>
+          <div class="ml-10 text-accent-magenta">↓ overridden by</div>
+          <!-- L1 -->
+          <div class="flex items-center gap-4">
+            <div class="grid w-20 shrink-0 place-items-center rounded-lg bg-accent-magenta/20 py-3 font-display text-2xl font-bold text-accent-magenta ring-1 ring-accent-magenta/40">
+              L1
+            </div>
+            <div class="flex-1 rounded-xl border border-accent-magenta/30 bg-accent-magenta/5 p-4">
+              <div class="font-semibold text-white">Department-Specific Guidelines</div>
+              <div class="text-sm text-slate-400">Most specific · CS &amp; AI Engineering · 38 documents</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

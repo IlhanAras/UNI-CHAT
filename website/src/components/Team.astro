@@ -1,0 +1,108 @@
+---
+const advisor = {
+  name: 'Prof. Dr. Mehmet Önder Efe',
+  role: 'Project Advisor',
+  org: 'Hacettepe University',
+};
+
+const members = [
+  {
+    name: 'İlhan Aras',
+    role: 'LightRAG Integration',
+    email: 'ilhanaras100@gmail.com',
+    initials: 'İA',
+    color: 'from-hac-red to-accent-magenta',
+  },
+  {
+    name: 'Berkay Turan',
+    role: 'Auth & Deployment',
+    email: 'turanbrkay@gmail.com',
+    initials: 'BT',
+    color: 'from-accent-cyan to-accent-violet',
+  },
+  {
+    name: 'Muhammet Çetinalp',
+    role: 'Knowledge Graph & NLP',
+    email: 'muhammedcetinalp35@gmail.com',
+    initials: 'MÇ',
+    color: 'from-accent-magenta to-accent-amber',
+  },
+  {
+    name: 'Ömer Faruk Güler',
+    role: 'Petition System & UI',
+    email: 'omer55glr@gmail.com',
+    initials: 'ÖG',
+    color: 'from-accent-amber to-accent-cyan',
+  },
+];
+---
+
+<section id="team" class="section-pad relative">
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background: radial-gradient(ellipse 50% 40% at 50% 30%, rgba(168,0,42,0.08), transparent);"
+  ></div>
+
+  <div class="container-x relative">
+    <div class="reveal mx-auto max-w-3xl text-center">
+      <div class="section-eyebrow justify-center">
+        <span class="h-px w-8 bg-hac-red-light"></span>
+        Team
+      </div>
+      <h2 class="section-title">
+        Built by <span class="text-gradient-hot">four students</span>, guided by one mentor.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-slate-300">
+        Senior project at Hacettepe University · Computer Engineering &amp; AI Engineering.
+      </p>
+    </div>
+
+    <!-- Advisor -->
+    <div class="reveal mt-16 mx-auto max-w-2xl">
+      <div class="glass-card glass-card-hover relative overflow-hidden p-7">
+        <div class="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-hac-red/30 blur-3xl"></div>
+        <div class="relative flex items-center gap-5">
+          <div class="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-hac-red to-hac-red-dark font-display text-xl font-bold text-white">
+            ME
+          </div>
+          <div class="flex-1">
+            <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-hac-red-light">
+              Project Advisor
+            </div>
+            <div class="mt-1 font-display text-xl font-semibold text-white">
+              {advisor.name}
+            </div>
+            <div class="text-sm text-slate-400">{advisor.org}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Members -->
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {members.map((m, i) => (
+        <div
+          class="reveal glass-card glass-card-hover group relative overflow-hidden p-6 text-center"
+          style={`transition-delay: ${i * 90}ms`}
+        >
+          <div class={`mx-auto grid h-24 w-24 place-items-center rounded-full bg-gradient-to-br ${m.color} font-display text-3xl font-bold text-white shadow-lg transition-transform group-hover:scale-105`}>
+            {m.initials}
+          </div>
+          <h3 class="mt-5 font-display text-lg font-semibold text-white">
+            {m.name}
+          </h3>
+          <div class="mt-1 text-xs text-slate-400">{m.role}</div>
+          <a
+            href={`mailto:${m.email}`}
+            class="mt-4 inline-flex items-center gap-1.5 text-xs text-accent-cyan transition-colors hover:text-white"
+          >
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16v16H4z M4 4l8 8 8-8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            {m.email}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

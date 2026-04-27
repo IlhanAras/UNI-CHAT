@@ -1,0 +1,75 @@
+---
+const groups = [
+  {
+    label: 'Backend',
+    items: ['Python 3.11', 'FastAPI', 'LightRAG', 'NetworkX', 'asyncio'],
+    color: 'cyan',
+  },
+  {
+    label: 'AI / LLM',
+    items: ['Ollama', 'OpenAI', 'Gemini', 'DeepSeek', 'BGE Reranker'],
+    color: 'magenta',
+  },
+  {
+    label: 'Frontend',
+    items: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS', 'i18next'],
+    color: 'violet',
+  },
+  {
+    label: 'Infra',
+    items: ['Docker', 'Nginx', 'AWS EC2', 'LibreOffice', 'Bun'],
+    color: 'amber',
+  },
+];
+
+const colorMap: Record<string, { dot: string; text: string; bg: string }> = {
+  cyan: { dot: 'bg-accent-cyan', text: 'text-accent-cyan', bg: 'bg-accent-cyan/5' },
+  magenta: { dot: 'bg-accent-magenta', text: 'text-accent-magenta', bg: 'bg-accent-magenta/5' },
+  violet: { dot: 'bg-accent-violet', text: 'text-accent-violet', bg: 'bg-accent-violet/5' },
+  amber: { dot: 'bg-accent-amber', text: 'text-accent-amber', bg: 'bg-accent-amber/5' },
+};
+---
+
+<section id="stack" class="section-pad relative">
+  <div class="container-x">
+    <div class="reveal mx-auto max-w-3xl text-center">
+      <div class="section-eyebrow justify-center">
+        <span class="h-px w-8 bg-accent-cyan"></span>
+        Tech Stack
+      </div>
+      <h2 class="section-title">
+        Built with <span class="text-gradient-cool">production tools</span>.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-slate-300">
+        No toy frameworks — every piece is something you'd ship in industry.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {groups.map((g, i) => {
+        const c = colorMap[g.color];
+        return (
+          <div
+            class={`reveal glass-card glass-card-hover overflow-hidden p-6 ${c.bg}`}
+            style={`transition-delay: ${i * 80}ms`}
+          >
+            <div class="flex items-center gap-2">
+              <span class={`h-1.5 w-1.5 rounded-full ${c.dot}`}></span>
+              <span class={`font-mono text-xs uppercase tracking-wider ${c.text}`}>
+                {g.label}
+              </span>
+            </div>
+            <ul class="mt-5 space-y-2.5">
+              {g.items.map((it) => (
+                <li class="flex items-center gap-2.5 text-sm font-medium text-slate-200">
+                  <span class="h-1 w-1 rounded-full bg-slate-500"></span>
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,173 @@
+---
+// Animated knowledge-graph-style particle network on canvas.
+// Lightweight: ~80 nodes, redraws only at 30fps, pauses when off-screen.
+---
+
+<canvas
+  id="particle-canvas"
+  class="absolute inset-0 h-full w-full"
+  aria-hidden="true"
+></canvas>
+
+<script>
+  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement | null;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    type Node = {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      r: number;
+      hue: number;
+    };
+
+    const NODE_COUNT = 70;
+    const LINK_DIST = 150;
+    const COLORS = [
+      [0, 212, 255],   // cyan
+      [255, 46, 147],  // magenta
+      [168, 85, 247],  // violet
+      [255, 184, 0],   // amber
+    ];
+
+    let nodes: Node[] = [];
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let running = true;
+
+    function resize() {
+      const rect = canvas!.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas!.width = Math.floor(width * dpr);
+      canvas!.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+    }
+
+    function seed() {
+      nodes = [];
+      for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: 1.4 + Math.random() * 2,
+          hue: Math.floor(Math.random() * COLORS.length),
+        });
+      }
+    }
+
+    function step() {
+      if (!running) {
+        requestAnimationFrame(step);
+        return;
+      }
+      ctx.clearRect(0, 0, width, height);
+
+      // update positions
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > width) n.vx *= -1;
+        if (n.y < 0 || n.y > height) n.vy *= -1;
+
+        // gentle attraction toward mouse
+        const dx = mouseX - n.x;
+        const dy = mouseY - n.y;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < 200 * 200) {
+          const force = (1 - Math.sqrt(distSq) / 200) * 0.04;
+          n.vx += dx * force * 0.01;
+          n.vy += dy * force * 0.01;
+        }
+
+        // mild damping
+        n.vx *= 0.995;
+        n.vy *= 0.995;
+
+        // ensure minimum speed
+        const speed = Math.hypot(n.vx, n.vy);
+        if (speed < 0.1) {
+          n.vx += (Math.random() - 0.5) * 0.1;
+          n.vy += (Math.random() - 0.5) * 0.1;
+        }
+      }
+
+      // draw links
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < LINK_DIST) {
+            const alpha = (1 - dist / LINK_DIST) * 0.45;
+            const col = COLORS[a.hue];
+            ctx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // draw nodes
+      for (const n of nodes) {
+        const col = COLORS[n.hue];
+        // glow
+        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 6);
+        grad.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},0.55)`);
+        grad.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r * 6, 0, Math.PI * 2);
+        ctx.fill();
+        // core
+        ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},0.95)`;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+      const rect = canvas!.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+    window.addEventListener('mouseleave', () => {
+      mouseX = -9999;
+      mouseY = -9999;
+    });
+
+    // Pause when canvas leaves viewport (perf)
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) running = e.isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    obs.observe(canvas);
+
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      running = false;
+    }
+
+    resize();
+    requestAnimationFrame(step);
+  }
+</script>
