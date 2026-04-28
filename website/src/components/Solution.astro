@@ -1,117 +1,133 @@
 ---
 const pillars = [
   {
-    title: 'Knowledge Graph',
+    n: '01',
+    title: 'Knowledge graph',
     body: 'Entities and relations are extracted from every regulation, building a queryable graph that captures how rules reference, override, and depend on each other.',
-    color: 'cyan',
   },
   {
-    title: 'Hierarchical Norm Resolution',
-    body: 'When two rules conflict, the system applies the “lex specialis” principle — the more specific lower-level norm wins, mirroring how legal experts reason.',
-    color: 'magenta',
+    n: '02',
+    title: 'Hierarchical norm resolution',
+    body: 'When two rules conflict, the system applies lex specialis — the more specific lower-level norm wins, mirroring how legal experts reason.',
   },
   {
-    title: 'Source-Grounded Answers',
+    n: '03',
+    title: 'Source-grounded answers',
     body: 'Every response is backed by the exact document and chunk it came from. No hallucinations, no untraceable claims.',
-    color: 'violet',
   },
 ];
-
-const colorClasses = {
-  cyan: { ring: 'ring-accent-cyan/40', glow: 'bg-accent-cyan/20', text: 'text-accent-cyan' },
-  magenta: { ring: 'ring-accent-magenta/40', glow: 'bg-accent-magenta/20', text: 'text-accent-magenta' },
-  violet: { ring: 'ring-accent-violet/40', glow: 'bg-accent-violet/20', text: 'text-accent-violet' },
-};
 ---
 
-<section id="solution" class="section-pad relative">
-  <!-- Decorative gradient -->
-  <div
-    class="pointer-events-none absolute inset-0"
-    style="background: radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0,212,255,0.08), transparent);"
-  ></div>
-
-  <div class="container-x relative">
-    <div class="reveal mx-auto max-w-3xl text-center">
-      <div class="section-eyebrow justify-center">
-        <span class="h-px w-8 bg-accent-cyan"></span>
-        Our Solution
+<section id="solution" class="section-pad">
+  <div class="container-wide">
+    <!-- Section masthead -->
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
+      <div class="col-span-12 lg:col-span-4">
+        <div class="section-mark">¶ II — The Solution</div>
+        <div class="caption mt-2">Built on LightRAG, extended for Turkish regulatory law</div>
       </div>
-      <h2 class="section-title">
-        A graph that <span class="text-gradient-cool">understands</span> the law.
-      </h2>
-      <p class="mt-6 text-lg leading-relaxed text-slate-300">
-        UNI-CHAT is built on <strong class="text-white">LightRAG</strong>, a
-        graph-augmented retrieval framework. We extended it with a
-        domain-specific norm-resolution layer for Turkish academic regulations.
-      </p>
+      <div class="col-span-12 lg:col-span-8">
+        <h2 class="display-lg">
+          A graph that <span class="italic-emph">understands</span> the law.
+        </h2>
+        <p class="body-lg mt-6">
+          UNI-CHAT is built on <strong class="text-ink">LightRAG</strong>, a
+          graph-augmented retrieval framework. We extended it with a
+          domain-specific norm-resolution layer for Turkish academic
+          regulations.
+        </p>
+      </div>
     </div>
 
-    <div class="mt-20 grid gap-8 lg:grid-cols-3">
-      {pillars.map((p, i) => {
-        const c = colorClasses[p.color as keyof typeof colorClasses];
-        return (
-          <div
-            class={`reveal relative glass-card glass-card-hover group overflow-hidden p-8 ring-1 ${c.ring}`}
-            style={`transition-delay: ${i * 120}ms`}
-          >
-            <div class={`pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full ${c.glow} blur-3xl transition-opacity duration-500 group-hover:opacity-150`}></div>
-            <div class={`font-mono text-xs uppercase tracking-[0.2em] ${c.text}`}>
-              0{i + 1} / 03
-            </div>
-            <h3 class="mt-4 font-display text-2xl font-semibold text-white">
-              {p.title}
-            </h3>
-            <p class="mt-4 text-sm leading-relaxed text-slate-300">
-              {p.body}
-            </p>
+    <!-- Pillars — three-column editorial layout -->
+    <div class="grid grid-cols-1 md:grid-cols-3">
+      {pillars.map((p, i) => (
+        <div class={`reveal border-b border-rule p-10 md:py-14 ${i < 2 ? 'md:border-r' : ''}`} style={`transition-delay: ${i * 100}ms`}>
+          <div class="font-mono tabular text-[11px] uppercase tracking-[0.22em] text-brand">
+            {p.n} / 03
           </div>
-        );
-      })}
-    </div>
-
-    <!-- Hierarchy diagram -->
-    <div class="reveal mt-20 mx-auto max-w-4xl">
-      <div class="glass-card p-8 sm:p-10">
-        <div class="text-center font-mono text-xs uppercase tracking-[0.2em] text-accent-cyan">
-          Normative Hierarchy
+          <h3 class="mt-8 font-display text-3xl leading-tight text-ink">
+            {p.title}
+          </h3>
+          <p class="marginalia mt-5">
+            {p.body}
+          </p>
         </div>
-        <h3 class="mt-3 text-center font-display text-2xl font-semibold">
-          Lower norms override higher norms on specific cases
-        </h3>
+      ))}
+    </div>
 
-        <div class="mt-10 flex flex-col gap-4">
+    <!-- Hierarchy diagram — printed schematic -->
+    <div class="reveal mt-24">
+      <div class="grid grid-cols-12 gap-6 mb-10">
+        <div class="col-span-12 lg:col-span-4">
+          <div class="section-mark">Schema A</div>
+          <div class="caption mt-2">Normative Hierarchy</div>
+        </div>
+        <div class="col-span-12 lg:col-span-8">
+          <h3 class="font-display text-3xl leading-tight text-ink sm:text-4xl">
+            Lower norms <span class="italic-emph">override</span> higher norms on specific cases.
+          </h3>
+        </div>
+      </div>
+
+      <div class="paper-card-bare p-8 sm:p-12">
+        <div class="space-y-6">
           <!-- L3 -->
-          <div class="flex items-center gap-4">
-            <div class="grid w-20 shrink-0 place-items-center rounded-lg bg-ink-700 py-3 font-display text-2xl font-bold text-slate-400">
-              L3
+          <div class="grid grid-cols-12 gap-4 items-center border-b border-rule pb-6">
+            <div class="col-span-2 sm:col-span-1">
+              <div class="font-display tabular text-5xl text-ink-400">L3</div>
             </div>
-            <div class="flex-1 rounded-xl border border-white/10 bg-ink-800/50 p-4">
-              <div class="font-semibold text-slate-300">Council of Higher Education (YÖK)</div>
-              <div class="text-sm text-slate-500">Broadest scope · National regulations · 31 documents</div>
+            <div class="col-span-10 sm:col-span-9">
+              <div class="font-display text-xl text-ink">Council of Higher Education (YÖK)</div>
+              <div class="marginalia mt-1">National regulations · broadest scope</div>
+            </div>
+            <div class="col-span-12 sm:col-span-2 text-left sm:text-right">
+              <div class="font-mono tabular text-sm text-ink-700">4 docs</div>
             </div>
           </div>
-          <!-- arrow -->
-          <div class="ml-10 text-accent-cyan">↓ overridden by</div>
+
+          <!-- arrow row -->
+          <div class="flex items-center gap-3 pl-2">
+            <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">overridden by</span>
+            <span class="rule-h max-w-24 bg-brand/40"></span>
+            <svg class="h-3 w-3 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+
           <!-- L2 -->
-          <div class="flex items-center gap-4">
-            <div class="grid w-20 shrink-0 place-items-center rounded-lg bg-hac-red/30 py-3 font-display text-2xl font-bold text-hac-red-light ring-1 ring-hac-red-light/40">
-              L2
+          <div class="grid grid-cols-12 gap-4 items-center border-b border-rule pb-6">
+            <div class="col-span-2 sm:col-span-1">
+              <div class="font-display tabular text-5xl text-ink-700">L2</div>
             </div>
-            <div class="flex-1 rounded-xl border border-hac-red-light/20 bg-hac-red/10 p-4">
-              <div class="font-semibold text-white">Hacettepe University</div>
-              <div class="text-sm text-slate-400">University-wide regulations · 45 documents</div>
+            <div class="col-span-10 sm:col-span-9">
+              <div class="font-display text-xl text-ink">Hacettepe University</div>
+              <div class="marginalia mt-1">University-wide regulations &amp; senate decisions</div>
+            </div>
+            <div class="col-span-12 sm:col-span-2 text-left sm:text-right">
+              <div class="font-mono tabular text-sm text-ink-700">56 docs</div>
             </div>
           </div>
-          <div class="ml-10 text-accent-magenta">↓ overridden by</div>
+
+          <div class="flex items-center gap-3 pl-2">
+            <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">overridden by</span>
+            <span class="rule-h max-w-24 bg-brand/40"></span>
+            <svg class="h-3 w-3 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+
           <!-- L1 -->
-          <div class="flex items-center gap-4">
-            <div class="grid w-20 shrink-0 place-items-center rounded-lg bg-accent-magenta/20 py-3 font-display text-2xl font-bold text-accent-magenta ring-1 ring-accent-magenta/40">
-              L1
+          <div class="grid grid-cols-12 gap-4 items-center pb-2">
+            <div class="col-span-2 sm:col-span-1">
+              <div class="font-display tabular text-5xl text-brand">L1</div>
             </div>
-            <div class="flex-1 rounded-xl border border-accent-magenta/30 bg-accent-magenta/5 p-4">
-              <div class="font-semibold text-white">Department-Specific Guidelines</div>
-              <div class="text-sm text-slate-400">Most specific · CS &amp; AI Engineering · 38 documents</div>
+            <div class="col-span-10 sm:col-span-9">
+              <div class="font-display text-xl text-ink">Department-specific guidelines</div>
+              <div class="marginalia mt-1">Most specific · CS &amp; AI Engineering</div>
+            </div>
+            <div class="col-span-12 sm:col-span-2 text-left sm:text-right">
+              <div class="font-mono tabular text-sm text-ink-700">23 docs</div>
             </div>
           </div>
         </div>

@@ -2,76 +2,87 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="relative mt-12 border-t border-white/5 py-14">
-  <div
-    class="pointer-events-none absolute inset-0"
-    style="background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(168,0,42,0.08), transparent);"
-  ></div>
-
-  <div class="container-x relative">
-    <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-      <div class="max-w-md">
+<footer class="border-t border-ink mt-12 pt-14 pb-10 bg-paper">
+  <div class="container-wide">
+    <!-- Colophon header -->
+    <div class="grid grid-cols-12 gap-6 border-b border-rule pb-10 mb-10">
+      <div class="col-span-12 lg:col-span-5">
         <div class="flex items-center gap-3">
-          <div class="grid h-9 w-9 place-items-center rounded-lg bg-hac-red font-display text-lg font-bold text-white">
+          <div class="flex h-9 w-9 items-center justify-center bg-ink text-paper font-display text-lg">
             U
           </div>
-          <span class="font-display text-lg font-semibold tracking-tight">UNI-CHAT</span>
+          <div>
+            <div class="font-display text-2xl tracking-tight">UNI-CHAT</div>
+            <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">
+              Vol. 01 · No. 1 · Senior Project
+            </div>
+          </div>
         </div>
-        <p class="mt-4 text-sm leading-relaxed text-slate-400">
-          A graph-based RAG assistant for Turkish academic regulations, built
-          as a senior project at Hacettepe University.
+        <p class="marginalia mt-6 max-w-md">
+          A graph-based RAG assistant for Turkish academic regulations,
+          built as a senior project at Hacettepe University.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-10 sm:grid-cols-3">
-        <div>
-          <div class="font-mono text-xs uppercase tracking-wider text-slate-500">
-            Sections
-          </div>
-          <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="#problem" class="text-slate-300 hover:text-white">Problem</a></li>
-            <li><a href="#architecture" class="text-slate-300 hover:text-white">Architecture</a></li>
-            <li><a href="#features" class="text-slate-300 hover:text-white">Features</a></li>
-            <li><a href="#benchmark" class="text-slate-300 hover:text-white">Benchmark</a></li>
-          </ul>
+      <div class="col-span-6 sm:col-span-4 lg:col-span-2 lg:col-start-7">
+        <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500 border-b border-rule pb-2">
+          Sections
         </div>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="#problem" class="text-ink-700 hover:text-brand transition-colors">Problem</a></li>
+          <li><a href="#solution" class="text-ink-700 hover:text-brand transition-colors">Solution</a></li>
+          <li><a href="#corpus" class="text-ink-700 hover:text-brand transition-colors">Corpus</a></li>
+          <li><a href="#architecture" class="text-ink-700 hover:text-brand transition-colors">Architecture</a></li>
+          <li><a href="#features" class="text-ink-700 hover:text-brand transition-colors">Features</a></li>
+          <li><a href="#benchmark" class="text-ink-700 hover:text-brand transition-colors">Benchmark</a></li>
+        </ul>
+      </div>
 
-        <div>
-          <div class="font-mono text-xs uppercase tracking-wider text-slate-500">
-            Project
-          </div>
-          <ul class="mt-4 space-y-2 text-sm">
-            <li>
-              <a
-                href="https://github.com/IlhanAras/UNI-CHAT"
-                target="_blank"
-                rel="noopener"
-                class="text-slate-300 hover:text-white"
-              >
-                GitHub Repository
-              </a>
-            </li>
-            <li><a href="#team" class="text-slate-300 hover:text-white">Team</a></li>
-            <li><a href="#demo" class="text-slate-300 hover:text-white">Demo</a></li>
-          </ul>
+      <div class="col-span-6 sm:col-span-4 lg:col-span-2">
+        <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500 border-b border-rule pb-2">
+          Project
         </div>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li>
+            <a
+              href="https://github.com/IlhanAras/UNI-CHAT"
+              target="_blank"
+              rel="noopener"
+              class="text-ink-700 hover:text-brand transition-colors"
+            >
+              Repository
+            </a>
+          </li>
+          <li><a href="#team" class="text-ink-700 hover:text-brand transition-colors">Team</a></li>
+          <li><a href="#demo" class="text-ink-700 hover:text-brand transition-colors">Demo</a></li>
+          <li><a href="#stack" class="text-ink-700 hover:text-brand transition-colors">Stack</a></li>
+        </ul>
+      </div>
 
-        <div>
-          <div class="font-mono text-xs uppercase tracking-wider text-slate-500">
-            University
-          </div>
-          <ul class="mt-4 space-y-2 text-sm">
-            <li class="text-slate-300">Hacettepe University</li>
-            <li class="text-slate-400">Computer Engineering</li>
-            <li class="text-slate-400">AI Engineering</li>
-          </ul>
+      <div class="col-span-12 sm:col-span-4 lg:col-span-3">
+        <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500 border-b border-rule pb-2">
+          Institution
         </div>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li class="text-ink">Hacettepe University</li>
+          <li class="text-ink-700">Computer Engineering</li>
+          <li class="text-ink-700">AI Engineering</li>
+          <li class="text-ink-500 font-mono text-xs mt-3">Ankara · Türkiye</li>
+        </ul>
       </div>
     </div>
 
-    <div class="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center">
-      <div>© {year} UNI-CHAT Team · Senior Project · Hacettepe University</div>
-      <div class="font-mono">Built with Astro + Tailwind</div>
+    <!-- Colophon footer -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-[11px]">
+      <div class="font-mono uppercase tracking-[0.22em] text-ink-500">
+        © {year} UNI-CHAT Team
+      </div>
+      <div class="font-mono uppercase tracking-[0.22em] text-ink-500 sm:text-center">
+        Set in Instrument Serif · Inter · JetBrains Mono
+      </div>
+      <div class="font-mono uppercase tracking-[0.22em] text-ink-500 sm:text-right">
+        Built with Astro &amp; Tailwind
+      </div>
     </div>
   </div>
 </footer>

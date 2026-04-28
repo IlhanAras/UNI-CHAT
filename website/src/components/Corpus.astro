@@ -1,0 +1,228 @@
+---
+const sources = [
+  {
+    code: 'L1',
+    name: 'Department guidelines',
+    org: 'CS & AI Engineering',
+    count: 23,
+    note: 'Internships, curriculum, graduation, research groups, FAQs.',
+  },
+  {
+    code: 'L2',
+    name: 'University regulations',
+    org: 'Hacettepe University',
+    count: 56,
+    note: 'Academic, disciplinary, administrative, transfer & exemption rules.',
+  },
+  {
+    code: 'L3',
+    name: 'National regulations',
+    org: 'Council of Higher Education (YÖK)',
+    count: 4,
+    note: 'Graduate education, joint programs, research-assistant exchange.',
+  },
+  {
+    code: 'S',
+    name: 'Senate decisions',
+    org: 'Hacettepe University Senate',
+    count: 495,
+    note: 'Weekly minutes, 2012 → 2026 — amend or supersede earlier rules.',
+  },
+  {
+    code: 'P',
+    name: 'Petition templates',
+    org: 'Hacettepe Student Affairs',
+    count: 66,
+    note: 'Official forms, browsable in-app, exportable as DOCX.',
+  },
+];
+
+// Senate decisions per year — real histogram from /senato/raw
+const senateByYear: { y: string; n: number }[] = [
+  { y: '2012', n: 10 },
+  { y: '2013', n: 26 },
+  { y: '2014', n: 50 },
+  { y: '2015', n: 52 },
+  { y: '2016', n: 35 },
+  { y: '2017', n: 39 },
+  { y: '2018', n: 30 },
+  { y: '2019', n: 26 },
+  { y: '2020', n: 35 },
+  { y: '2021', n: 44 },
+  { y: '2022', n: 37 },
+  { y: '2023', n: 37 },
+  { y: '2024', n: 28 },
+  { y: '2025', n: 34 },
+  { y: '2026', n: 12 },
+];
+const peak = Math.max(...senateByYear.map((d) => d.n));
+const total = senateByYear.reduce((s, d) => s + d.n, 0);
+---
+
+<section id="corpus" class="section-pad">
+  <div class="container-wide">
+    <!-- Section masthead -->
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
+      <div class="col-span-12 lg:col-span-4">
+        <div class="section-mark">¶ III — The Corpus</div>
+        <div class="caption mt-2">Five sources, indexed continuously</div>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <h2 class="display-lg">
+          What the system <span class="italic-emph">actually reads</span>.
+        </h2>
+        <p class="body-lg mt-6">
+          The knowledge base is not a single PDF dump. It blends three tiers of
+          regulations with <strong class="text-ink">14 years of senate
+          minutes</strong> and the official petition catalogue — every source
+          tracked, hashed, and re-indexed on change.
+        </p>
+      </div>
+    </div>
+
+    <!-- Sources table — printed-ledger style -->
+    <div class="reveal mt-2">
+      <div class="grid grid-cols-12 gap-4 border-b border-ink py-3 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">
+        <div class="col-span-1">#</div>
+        <div class="col-span-4 sm:col-span-3">Source</div>
+        <div class="col-span-7 sm:col-span-5">Authority</div>
+        <div class="hidden sm:block sm:col-span-2 text-right">Count</div>
+        <div class="hidden sm:block sm:col-span-1 text-right">Tier</div>
+      </div>
+
+      {sources.map((s, i) => (
+        <div class="reveal grid grid-cols-12 gap-4 border-b border-rule py-6 items-baseline" style={`transition-delay: ${i * 60}ms`}>
+          <div class="col-span-1 font-mono tabular text-sm text-ink-500">
+            {String(i + 1).padStart(2, '0')}
+          </div>
+          <div class="col-span-11 sm:col-span-3">
+            <div class="font-display text-xl text-ink leading-tight">{s.name}</div>
+            <div class="marginalia mt-1 sm:hidden">{s.note}</div>
+          </div>
+          <div class="col-span-12 sm:col-span-5">
+            <div class="text-sm text-ink">{s.org}</div>
+            <div class="marginalia mt-1 hidden sm:block">{s.note}</div>
+          </div>
+          <div class="col-span-6 sm:col-span-2 sm:text-right">
+            <div class="font-display tabular text-3xl text-ink leading-none">{s.count.toLocaleString()}</div>
+            <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-500 mt-1 sm:hidden">documents</div>
+          </div>
+          <div class="col-span-6 sm:col-span-1 sm:text-right">
+            <span class="inline-flex items-center justify-center min-w-[2.4rem] border border-ink px-2 py-0.5 font-mono tabular text-[11px] text-ink" style="border-radius: 2px;">
+              {s.code}
+            </span>
+          </div>
+        </div>
+      ))}
+
+      <!-- Total row -->
+      <div class="reveal grid grid-cols-12 gap-4 border-y border-ink py-5 items-baseline mt-px">
+        <div class="col-span-1 font-mono tabular text-sm text-ink-700">Σ</div>
+        <div class="col-span-11 sm:col-span-3">
+          <div class="font-display text-xl text-ink">Total — corpus size</div>
+        </div>
+        <div class="col-span-12 sm:col-span-5">
+          <div class="text-sm text-ink-700">Indexed into 3,068 retrievable chunks</div>
+        </div>
+        <div class="col-span-6 sm:col-span-2 sm:text-right">
+          <div class="font-display tabular text-3xl text-ink leading-none">
+            {sources.reduce((s, x) => s + x.count, 0).toLocaleString()}
+          </div>
+        </div>
+        <div class="col-span-6 sm:col-span-1 sm:text-right">
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-500">docs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Senate-by-year histogram — printed sparkline -->
+    <div class="reveal mt-24">
+      <div class="grid grid-cols-12 gap-6 border-b border-ink pb-6 mb-8">
+        <div class="col-span-12 lg:col-span-4">
+          <div class="section-mark">Figure III.a</div>
+          <div class="caption mt-2">Senate decisions, 2012 – 2026</div>
+        </div>
+        <div class="col-span-12 lg:col-span-8">
+          <h3 class="font-display text-3xl leading-tight text-ink sm:text-4xl">
+            Fourteen years of <span class="italic-emph">institutional change</span>,
+            week by week.
+          </h3>
+          <p class="marginalia mt-4 max-w-2xl">
+            Each weekly senate session can amend or supersede earlier rules.
+            We index every published decision and surface the governing one
+            during retrieval.
+          </p>
+        </div>
+      </div>
+
+      <div class="paper-card-bare p-8 sm:p-12">
+        <div class="flex items-end gap-2 sm:gap-3 h-44">
+          {senateByYear.map((d) => {
+            const h = Math.round((d.n / peak) * 100);
+            return (
+              <div class="flex-1 flex flex-col items-center justify-end gap-2">
+                <div class="font-mono tabular text-[10px] text-ink-500">{d.n}</div>
+                <div
+                  class="w-full bg-ink"
+                  style={`height: ${h}%; min-height: 2px;`}
+                ></div>
+              </div>
+            );
+          })}
+        </div>
+        <div class="mt-3 flex items-center gap-2 sm:gap-3 border-t border-rule pt-3">
+          {senateByYear.map((d) => (
+            <div class="flex-1 text-center font-mono text-[10px] tabular text-ink-500">
+              {d.y.slice(-2)}
+            </div>
+          ))}
+        </div>
+        <div class="mt-6 flex flex-wrap items-baseline justify-between gap-4 border-t border-rule pt-4">
+          <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">
+            Peak year · 2015 (52)
+          </div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">
+            14-year span
+          </div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-700">
+            Σ {total} decisions
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Provenance + ingestion note -->
+    <div class="reveal mt-20 grid grid-cols-12 gap-6 border-t border-rule pt-10">
+      <div class="col-span-12 md:col-span-4">
+        <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">
+          Source-grounded
+        </div>
+        <h3 class="mt-3 font-display text-2xl text-ink">Every claim is citable</h3>
+        <p class="marginalia mt-3">
+          Answers carry inline references to the source PDF and the exact chunk
+          they were drawn from.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">
+          Hash-tracked
+        </div>
+        <h3 class="mt-3 font-display text-2xl text-ink">Incremental updates</h3>
+        <p class="marginalia mt-3">
+          Modified documents are detected by content hash; only the diff is
+          re-extracted into the graph.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">
+          Date-aware
+        </div>
+        <h3 class="mt-3 font-display text-2xl text-ink">Newer decisions win</h3>
+        <p class="marginalia mt-3">
+          When a senate decision conflicts with an older regulation, the more
+          recent one is preferred — alongside the lex specialis hierarchy.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

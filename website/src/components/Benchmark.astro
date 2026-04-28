@@ -1,140 +1,131 @@
 ---
-// Data from poster: LightRAG vs baselines on 4 domains.
-// Each baseline group is normalized so each domain pair sums comparably.
 const baselines = [
   {
     name: 'LightRAG vs NaiveRAG',
-    metric: 'Overall',
     domains: [
       { domain: 'Agriculture', baseline: 33.30, light: 66.70 },
       { domain: 'CS',          baseline: 34.76, light: 65.24 },
       { domain: 'Legal',       baseline: 17.46, light: 82.54 },
       { domain: 'Mix',         baseline: 37.59, light: 62.40 },
     ],
-    baselineColor: 'bg-slate-600',
-    lightColor: 'bg-gradient-to-r from-accent-cyan to-accent-violet',
   },
   {
     name: 'LightRAG vs RQ-RAG',
-    metric: 'Overall',
     domains: [
       { domain: 'Agriculture', baseline: 33.29, light: 66.71 },
       { domain: 'CS',          baseline: 39.03, light: 60.97 },
       { domain: 'Legal',       baseline: 17.80, light: 82.20 },
       { domain: 'Mix',         baseline: 39.61, light: 60.39 },
     ],
-    baselineColor: 'bg-slate-600',
-    lightColor: 'bg-gradient-to-r from-accent-magenta to-accent-amber',
   },
   {
     name: 'LightRAG vs HyDE',
-    metric: 'Overall',
     domains: [
       { domain: 'Agriculture', baseline: 23.17, light: 76.83 },
       { domain: 'CS',          baseline: 35.67, light: 64.33 },
       { domain: 'Legal',       baseline: 27.68, light: 72.32 },
       { domain: 'Mix',         baseline: 42.72, light: 57.28 },
     ],
-    baselineColor: 'bg-slate-600',
-    lightColor: 'bg-gradient-to-r from-accent-cyan to-accent-magenta',
   },
   {
     name: 'LightRAG vs GraphRAG',
-    metric: 'Overall',
     domains: [
       { domain: 'Agriculture', baseline: 43.62, light: 56.38 },
       { domain: 'CS',          baseline: 45.98, light: 54.02 },
       { domain: 'Legal',       baseline: 45.70, light: 54.30 },
       { domain: 'Mix',         baseline: 51.86, light: 48.14 },
     ],
-    baselineColor: 'bg-slate-600',
-    lightColor: 'bg-gradient-to-r from-accent-violet to-accent-cyan',
   },
 ];
 ---
 
-<section id="benchmark" class="section-pad relative">
-  <div
-    class="pointer-events-none absolute inset-0"
-    style="background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(168,85,247,0.06), transparent);"
-  ></div>
-
-  <div class="container-x relative">
-    <div class="reveal mx-auto max-w-3xl text-center">
-      <div class="section-eyebrow justify-center">
-        <span class="h-px w-8 bg-accent-violet"></span>
-        Benchmark Results
+<section id="benchmark" class="section-pad">
+  <div class="container-wide">
+    <!-- Section masthead -->
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
+      <div class="col-span-12 lg:col-span-4">
+        <div class="section-mark">¶ VI — Benchmark</div>
+        <div class="caption mt-2">Win-rate, four baselines, four domains</div>
       </div>
-      <h2 class="section-title">
-        Why <span class="text-gradient-cool">graph-based RAG</span> wins.
-      </h2>
-      <p class="mt-6 text-lg leading-relaxed text-slate-300">
-        On the LightRAG paper's evaluation suite, graph-based retrieval beats
-        NaiveRAG, RQ-RAG, and HyDE by wide margins on the
-        <strong class="text-white">Legal</strong> domain — the closest analog to our
-        regulatory corpus.
-      </p>
+      <div class="col-span-12 lg:col-span-8">
+        <h2 class="display-lg">
+          Why <span class="italic-emph">graph-based</span> RAG wins.
+        </h2>
+        <p class="body-lg mt-6">
+          On the LightRAG paper's evaluation suite, graph-based retrieval beats
+          NaiveRAG, RQ-RAG, and HyDE by wide margins on the
+          <strong class="text-ink">Legal</strong> domain — the closest analog
+          to our regulatory corpus.
+        </p>
+      </div>
     </div>
 
-    <div class="mt-16 grid gap-8 lg:grid-cols-2">
+    <!-- Bar tables — like an annual report figure -->
+    <div class="grid gap-px bg-rule lg:grid-cols-2">
       {baselines.map((b, idx) => (
-        <div class="reveal glass-card p-7" style={`transition-delay: ${idx * 80}ms`}>
-          <div class="flex items-baseline justify-between">
-            <h3 class="font-display text-lg font-semibold">{b.name}</h3>
-            <span class="font-mono text-xs uppercase tracking-wider text-slate-500">{b.metric} Win-Rate (%)</span>
+        <div class="bg-paper p-8 sm:p-10 reveal" style={`transition-delay: ${idx * 80}ms`}>
+          <div class="flex items-baseline justify-between border-b border-ink pb-3">
+            <h3 class="font-display text-2xl text-ink">{b.name}</h3>
+            <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">
+              Tab. {String(idx + 1).padStart(2, '0')}
+            </span>
           </div>
 
-          <div class="mt-6 space-y-4">
+          <div class="mt-6 space-y-5">
             {b.domains.map((d) => (
               <div>
-                <div class="mb-1.5 flex items-center justify-between text-xs">
-                  <span class="font-medium text-slate-300">{d.domain}</span>
-                  <span class="font-mono text-slate-400">
-                    <span class="text-slate-500">{d.baseline.toFixed(1)}%</span>
-                    <span class="mx-2 text-slate-600">vs</span>
-                    <span class="text-white">{d.light.toFixed(1)}%</span>
+                <div class="mb-1.5 flex items-baseline justify-between text-xs">
+                  <span class="font-mono uppercase tracking-[0.15em] text-ink-700">{d.domain}</span>
+                  <span class="font-mono tabular text-ink-500">
+                    <span>{d.baseline.toFixed(1)}</span>
+                    <span class="mx-2 text-ink-400">/</span>
+                    <span class="text-ink">{d.light.toFixed(1)}</span>
                   </span>
                 </div>
-                <div class="flex h-2.5 w-full overflow-hidden rounded-full bg-ink-800">
+                <div class="flex h-1.5 w-full overflow-hidden bg-ink-100">
                   <div
-                    class={`h-full ${b.baselineColor} transition-all`}
+                    class="h-full bg-ink-300 transition-all duration-500"
                     style={`width: ${d.baseline}%`}
                   ></div>
                   <div
-                    class={`h-full ${b.lightColor} transition-all`}
+                    class="h-full bg-ink transition-all duration-500"
                     style={`width: ${d.light}%`}
                   ></div>
                 </div>
               </div>
             ))}
           </div>
+
+          <div class="mt-6 flex items-center gap-4 border-t border-rule pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-500">
+            <span class="flex items-center gap-1.5"><span class="h-1.5 w-3 bg-ink-300"></span>baseline</span>
+            <span class="flex items-center gap-1.5"><span class="h-1.5 w-3 bg-ink"></span>LightRAG</span>
+          </div>
         </div>
       ))}
     </div>
 
-    <!-- Highlight metrics -->
-    <div class="reveal mt-16">
-      <div class="glass-card p-8 sm:p-10">
-        <div class="grid gap-6 sm:grid-cols-3">
-          <div>
-            <div class="font-mono text-xs uppercase tracking-wider text-accent-cyan">Comprehensiveness</div>
-            <div class="mt-2 font-display text-4xl font-bold text-white">+38pt</div>
-            <div class="mt-1 text-sm text-slate-400">avg gain over NaiveRAG on Legal</div>
-          </div>
-          <div>
-            <div class="font-mono text-xs uppercase tracking-wider text-accent-magenta">Diversity</div>
-            <div class="mt-2 font-display text-4xl font-bold text-white">+74pt</div>
-            <div class="mt-1 text-sm text-slate-400">avg gain over NaiveRAG on Legal</div>
-          </div>
-          <div>
-            <div class="font-mono text-xs uppercase tracking-wider text-accent-violet">Empowerment</div>
-            <div class="mt-2 font-display text-4xl font-bold text-white">+65pt</div>
-            <div class="mt-1 text-sm text-slate-400">avg gain over NaiveRAG on Legal</div>
-          </div>
+    <!-- Highlight metrics — printed table -->
+    <div class="reveal mt-20">
+      <div class="border-y border-ink">
+        <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-rule">
+          {[
+            { label: 'Comprehensiveness', value: '+38', unit: 'pt', desc: 'avg gain over NaiveRAG (Legal)' },
+            { label: 'Diversity',         value: '+74', unit: 'pt', desc: 'avg gain over NaiveRAG (Legal)' },
+            { label: 'Empowerment',       value: '+65', unit: 'pt', desc: 'avg gain over NaiveRAG (Legal)' },
+          ].map((m) => (
+            <div class="px-8 py-10">
+              <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">{m.label}</div>
+              <div class="mt-4 flex items-baseline gap-1">
+                <div class="font-display tabular text-7xl leading-none text-ink">{m.value}</div>
+                <div class="font-display text-2xl text-ink-500">{m.unit}</div>
+              </div>
+              <div class="marginalia mt-3">{m.desc}</div>
+            </div>
+          ))}
         </div>
-        <div class="mt-6 border-t border-white/10 pt-4 text-xs text-slate-500">
-          Source: LightRAG benchmark suite (Han et al., 2024) · Legal domain most representative of our corpus.
-        </div>
+      </div>
+      <div class="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-500">
+        Source · LightRAG benchmark suite (Han et al., 2024) · Legal domain most representative of our corpus
       </div>
     </div>
   </div>

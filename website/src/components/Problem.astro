@@ -1,79 +1,81 @@
 ---
 const stats = [
   {
-    value: '162',
-    suffix: '',
-    label: 'Regulatory Documents',
-    desc: 'Spread across departmental, university, and national levels',
+    value: '83',
+    label: 'Regulatory documents',
+    desc: 'Spread across departmental, university, and national authorities.',
   },
   {
-    value: '3',
-    suffix: '',
-    label: 'Hierarchical Levels',
-    desc: 'Department › University › Council of Higher Education',
+    value: '495',
+    label: 'Senate decisions',
+    desc: 'Issued 2012 – 2026 — each can override or amend prior rules.',
   },
   {
     value: '∞',
-    suffix: '',
-    label: 'Conflicts to Resolve',
-    desc: 'Lower norms can override broader regulations on specific cases',
+    label: 'Conflicts to resolve',
+    desc: 'Lower-scope norms can override broader regulations on specific cases.',
   },
 ];
 ---
 
-<section id="problem" class="section-pad relative">
-  <div class="container-x">
-    <div class="reveal mx-auto max-w-3xl text-center">
-      <div class="section-eyebrow justify-center">
-        <span class="h-px w-8 bg-accent-magenta"></span>
-        The Problem
+<section id="problem" class="section-pad">
+  <div class="container-wide">
+    <!-- Section masthead -->
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
+      <div class="col-span-12 lg:col-span-4">
+        <div class="section-mark">¶ I — The Problem</div>
+        <div class="caption mt-2">A note on the nature of the corpus</div>
       </div>
-      <h2 class="section-title">
-        Regulations are <span class="text-gradient-hot">scattered</span> and
-        <span class="text-gradient-cool">contradictory</span>.
-      </h2>
-      <p class="mt-6 text-lg leading-relaxed text-slate-300">
-        Students searching for a definitive answer must read dozens of PDFs
-        across multiple authorities — and even then, conflicts between rules
-        leave them guessing which one applies.
-      </p>
+      <div class="col-span-12 lg:col-span-8">
+        <h2 class="display-lg">
+          Regulations are <span class="italic-emph">scattered</span>,
+          and frequently <span class="italic-emph">contradictory</span>.
+        </h2>
+        <p class="body-lg mt-6">
+          A student looking for a definitive answer must read dozens of PDFs
+          across multiple authorities — and even then, conflicts between rules
+          leave them guessing which one applies.
+        </p>
+      </div>
     </div>
 
-    <div class="mt-16 grid gap-6 md:grid-cols-3">
+    <!-- Stat table -->
+    <div class="grid grid-cols-1 md:grid-cols-3">
       {stats.map((s, i) => (
-        <div
-          class="reveal glass-card glass-card-hover group p-8"
-          style={`transition-delay: ${i * 100}ms`}
-        >
-          <div class="font-display text-6xl font-bold text-gradient-hot">
-            {s.value}{s.suffix}
+        <div class={`reveal border-b border-rule p-8 md:py-12 md:px-10 ${i < 2 ? 'md:border-r' : ''}`} style={`transition-delay: ${i * 80}ms`}>
+          <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">
+            Figure {String(i + 1).padStart(2, '0')}
           </div>
-          <div class="mt-4 font-display text-lg font-semibold text-white">
+          <div class="mt-4 font-display tabular text-7xl text-ink leading-none">
+            {s.value}
+          </div>
+          <div class="mt-6 font-display text-xl text-ink">
             {s.label}
           </div>
-          <div class="mt-2 text-sm leading-relaxed text-slate-400">
+          <div class="marginalia mt-2">
             {s.desc}
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Quote-style frustration card -->
-    <div class="reveal mt-16 mx-auto max-w-4xl">
-      <div class="glass-card relative overflow-hidden p-8 sm:p-12">
-        <div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent-magenta/20 blur-3xl"></div>
-        <div class="relative">
-          <div class="font-mono text-xs uppercase tracking-[0.2em] text-accent-magenta">
-            Real student question
-          </div>
-          <blockquote class="mt-4 font-display text-2xl font-medium leading-snug text-white sm:text-3xl">
-            “Which rule wins — the department's internship guideline, the
-            university's general regulation, or the YÖK directive?”
-          </blockquote>
-          <div class="mt-6 text-sm text-slate-400">
-            Without a system that understands legal hierarchy, the answer is
-            buried in 200+ pages of dense Turkish legalese.
-          </div>
+    <!-- Pull quote — editorial centerpiece -->
+    <div class="reveal mt-24 grid grid-cols-12 gap-6">
+      <div class="col-span-12 lg:col-span-2">
+        <div class="section-mark">Field Note</div>
+        <div class="caption mt-2">From a real student</div>
+      </div>
+      <div class="col-span-12 lg:col-span-9 lg:col-start-3">
+        <blockquote class="font-display text-3xl leading-tight text-ink sm:text-5xl">
+          <span class="italic-emph">“</span>Which rule wins — the
+          department's internship guideline, the university's general
+          regulation, or the YÖK directive?<span class="italic-emph">”</span>
+        </blockquote>
+        <div class="mt-8 flex items-center gap-4">
+          <span class="rule-h max-w-12"></span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">
+            Without a system that understands legal hierarchy, the answer is buried in 200+ pages of dense Turkish legalese.
+          </span>
         </div>
       </div>
     </div>

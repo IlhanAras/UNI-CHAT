@@ -1,44 +1,32 @@
 ---
-// Animated knowledge-graph-style particle network on canvas.
-// Lightweight: ~80 nodes, redraws only at 30fps, pauses when off-screen.
+// Quiet hero backdrop — a slow-drifting graph of small dots and hairlines.
+// No glow, no neon, no fill blooms. Pure ink-on-paper. Pauses off-screen
+// and respects prefers-reduced-motion (renders a single static frame).
 ---
 
 <canvas
-  id="particle-canvas"
+  id="hero-graph-canvas"
   class="absolute inset-0 h-full w-full"
   aria-hidden="true"
 ></canvas>
 
 <script>
-  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement | null;
+  const canvas = document.getElementById('hero-graph-canvas') as HTMLCanvasElement | null;
   if (canvas) {
     const ctx = canvas.getContext('2d')!;
     let width = 0;
     let height = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    type Node = {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      r: number;
-      hue: number;
-    };
+    type Node = { x: number; y: number; vx: number; vy: number; r: number };
 
-    const NODE_COUNT = 70;
-    const LINK_DIST = 150;
-    const COLORS = [
-      [0, 212, 255],   // cyan
-      [255, 46, 147],  // magenta
-      [168, 85, 247],  // violet
-      [255, 184, 0],   // amber
-    ];
+    const NODE_COUNT = 36;
+    const LINK_DIST = 180;
+    const INK = '14, 14, 14';
 
     let nodes: Node[] = [];
-    let mouseX = -9999;
-    let mouseY = -9999;
     let running = true;
+    let staticOnly = false;
 
     function resize() {
       const rect = canvas!.getBoundingClientRect();
@@ -48,6 +36,7 @@
       canvas!.height = Math.floor(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       seed();
+      if (staticOnly) draw();
     }
 
     function seed() {
@@ -56,51 +45,17 @@
         nodes.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-          r: 1.4 + Math.random() * 2,
-          hue: Math.floor(Math.random() * COLORS.length),
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: (Math.random() - 0.5) * 0.18,
+          r: 1 + Math.random() * 1.4,
         });
       }
     }
 
-    function step() {
-      if (!running) {
-        requestAnimationFrame(step);
-        return;
-      }
+    function draw() {
       ctx.clearRect(0, 0, width, height);
 
-      // update positions
-      for (const n of nodes) {
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > width) n.vx *= -1;
-        if (n.y < 0 || n.y > height) n.vy *= -1;
-
-        // gentle attraction toward mouse
-        const dx = mouseX - n.x;
-        const dy = mouseY - n.y;
-        const distSq = dx * dx + dy * dy;
-        if (distSq < 200 * 200) {
-          const force = (1 - Math.sqrt(distSq) / 200) * 0.04;
-          n.vx += dx * force * 0.01;
-          n.vy += dy * force * 0.01;
-        }
-
-        // mild damping
-        n.vx *= 0.995;
-        n.vy *= 0.995;
-
-        // ensure minimum speed
-        const speed = Math.hypot(n.vx, n.vy);
-        if (speed < 0.1) {
-          n.vx += (Math.random() - 0.5) * 0.1;
-          n.vy += (Math.random() - 0.5) * 0.1;
-        }
-      }
-
-      // draw links
+      // Hairlines between near nodes — very faint
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];
         for (let j = i + 1; j < nodes.length; j++) {
@@ -109,10 +64,9 @@
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < LINK_DIST) {
-            const alpha = (1 - dist / LINK_DIST) * 0.45;
-            const col = COLORS[a.hue];
-            ctx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${alpha})`;
-            ctx.lineWidth = 0.6;
+            const alpha = (1 - dist / LINK_DIST) * 0.18;
+            ctx.strokeStyle = `rgba(${INK},${alpha.toFixed(3)})`;
+            ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -121,39 +75,32 @@
         }
       }
 
-      // draw nodes
+      // Tiny ink dots — no glow, no halo
       for (const n of nodes) {
-        const col = COLORS[n.hue];
-        // glow
-        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 6);
-        grad.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},0.55)`);
-        grad.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r * 6, 0, Math.PI * 2);
-        ctx.fill();
-        // core
-        ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},0.95)`;
+        ctx.fillStyle = `rgba(${INK},0.55)`;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fill();
       }
+    }
 
+    function step() {
+      if (!running || staticOnly) {
+        requestAnimationFrame(step);
+        return;
+      }
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > width) n.vx *= -1;
+        if (n.y < 0 || n.y > height) n.vy *= -1;
+      }
+      draw();
       requestAnimationFrame(step);
     }
 
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', (e) => {
-      const rect = canvas!.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    });
-    window.addEventListener('mouseleave', () => {
-      mouseX = -9999;
-      mouseY = -9999;
-    });
 
-    // Pause when canvas leaves viewport (perf)
     const obs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) running = e.isIntersecting;
@@ -162,12 +109,12 @@
     );
     obs.observe(canvas);
 
-    // Respect reduced motion
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      running = false;
+      staticOnly = true;
     }
 
     resize();
+    if (staticOnly) draw();
     requestAnimationFrame(step);
   }
 </script>
