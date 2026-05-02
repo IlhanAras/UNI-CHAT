@@ -21,64 +21,62 @@ const pillars = [
 <section id="solution" class="section-pad">
   <div class="container-wide">
     <!-- Section masthead -->
-    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
-      <div class="col-span-12 lg:col-span-4">
-        <div class="section-mark">¶ II — The Solution</div>
-        <div class="caption mt-2">Built on LightRAG, extended for Turkish regulatory law</div>
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-8">
+      <div class="col-span-12 lg:col-span-3">
+        <div class="section-mark">02 — Solution</div>
       </div>
-      <div class="col-span-12 lg:col-span-8">
+      <div class="col-span-12 lg:col-span-9">
         <h2 class="display-lg">
-          A graph that <span class="italic-emph">understands</span> the law.
+          A graph that understands the law.
         </h2>
         <p class="body-lg mt-6">
-          UNI-CHAT is built on <strong class="text-ink">LightRAG</strong>, a
-          graph-augmented retrieval framework. We extended it with a
+          UNI-CHAT is built on <span class="text-ink font-semibold">LightRAG</span>,
+          a graph-augmented retrieval framework. We extended it with a
           domain-specific norm-resolution layer for Turkish academic
           regulations.
         </p>
       </div>
     </div>
 
-    <!-- Pillars — three-column editorial layout -->
+    <!-- Pillars -->
     <div class="grid grid-cols-1 md:grid-cols-3">
       {pillars.map((p, i) => (
-        <div class={`reveal border-b border-rule p-10 md:py-14 ${i < 2 ? 'md:border-r' : ''}`} style={`transition-delay: ${i * 100}ms`}>
-          <div class="font-mono tabular text-[11px] uppercase tracking-[0.22em] text-brand">
+        <div class={`reveal border-b border-rule p-8 md:py-12 md:px-10 ${i < 2 ? 'md:border-r' : ''}`} style={`transition-delay: ${i * 100}ms`}>
+          <div class="font-mono tabular text-[11px] uppercase tracking-[0.2em] text-brand">
             {p.n} / 03
           </div>
-          <h3 class="mt-8 font-display text-3xl leading-tight text-ink">
+          <h3 class="mt-6 font-display text-xl font-semibold text-ink">
             {p.title}
           </h3>
-          <p class="marginalia mt-5">
+          <p class="marginalia mt-3">
             {p.body}
           </p>
         </div>
       ))}
     </div>
 
-    <!-- Hierarchy diagram — printed schematic -->
-    <div class="reveal mt-24">
-      <div class="grid grid-cols-12 gap-6 mb-10">
-        <div class="col-span-12 lg:col-span-4">
-          <div class="section-mark">Schema A</div>
-          <div class="caption mt-2">Normative Hierarchy</div>
+    <!-- Hierarchy schematic -->
+    <div class="reveal mt-20">
+      <div class="grid grid-cols-12 gap-6 mb-8">
+        <div class="col-span-12 lg:col-span-3">
+          <div class="section-mark">Normative hierarchy</div>
         </div>
-        <div class="col-span-12 lg:col-span-8">
-          <h3 class="font-display text-3xl leading-tight text-ink sm:text-4xl">
-            Lower norms <span class="italic-emph">override</span> higher norms on specific cases.
+        <div class="col-span-12 lg:col-span-9">
+          <h3 class="font-display text-2xl font-semibold text-ink sm:text-3xl">
+            Lower-scope norms override broader regulations on specific cases.
           </h3>
         </div>
       </div>
 
-      <div class="paper-card-bare p-8 sm:p-12">
-        <div class="space-y-6">
+      <div class="paper-card-bare p-8 sm:p-10">
+        <div class="space-y-5">
           <!-- L3 -->
-          <div class="grid grid-cols-12 gap-4 items-center border-b border-rule pb-6">
+          <div class="grid grid-cols-12 gap-4 items-center border-b border-rule pb-5">
             <div class="col-span-2 sm:col-span-1">
-              <div class="font-display tabular text-5xl text-ink-400">L3</div>
+              <div class="font-display tabular text-4xl font-semibold text-ink-400">L3</div>
             </div>
             <div class="col-span-10 sm:col-span-9">
-              <div class="font-display text-xl text-ink">Council of Higher Education (YÖK)</div>
+              <div class="font-display text-lg font-semibold text-ink">Council of Higher Education (YÖK)</div>
               <div class="marginalia mt-1">National regulations · broadest scope</div>
             </div>
             <div class="col-span-12 sm:col-span-2 text-left sm:text-right">
@@ -86,48 +84,41 @@ const pillars = [
             </div>
           </div>
 
-          <!-- arrow row -->
           <div class="flex items-center gap-3 pl-2">
-            <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">overridden by</span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">overridden by</span>
             <span class="rule-h max-w-24 bg-brand/40"></span>
-            <svg class="h-3 w-3 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
           </div>
 
           <!-- L2 -->
-          <div class="grid grid-cols-12 gap-4 items-center border-b border-rule pb-6">
+          <div class="grid grid-cols-12 gap-4 items-center border-b border-rule pb-5">
             <div class="col-span-2 sm:col-span-1">
-              <div class="font-display tabular text-5xl text-ink-700">L2</div>
+              <div class="font-display tabular text-4xl font-semibold text-ink-700">L2</div>
             </div>
             <div class="col-span-10 sm:col-span-9">
-              <div class="font-display text-xl text-ink">Hacettepe University</div>
+              <div class="font-display text-lg font-semibold text-ink">Hacettepe University</div>
               <div class="marginalia mt-1">University-wide regulations &amp; senate decisions</div>
             </div>
             <div class="col-span-12 sm:col-span-2 text-left sm:text-right">
-              <div class="font-mono tabular text-sm text-ink-700">56 docs</div>
+              <div class="font-mono tabular text-sm text-ink-700">158 docs</div>
             </div>
           </div>
 
           <div class="flex items-center gap-3 pl-2">
-            <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">overridden by</span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">overridden by</span>
             <span class="rule-h max-w-24 bg-brand/40"></span>
-            <svg class="h-3 w-3 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
           </div>
 
           <!-- L1 -->
           <div class="grid grid-cols-12 gap-4 items-center pb-2">
             <div class="col-span-2 sm:col-span-1">
-              <div class="font-display tabular text-5xl text-brand">L1</div>
+              <div class="font-display tabular text-4xl font-semibold text-brand">L1</div>
             </div>
             <div class="col-span-10 sm:col-span-9">
-              <div class="font-display text-xl text-ink">Department-specific guidelines</div>
+              <div class="font-display text-lg font-semibold text-ink">Department-specific guidelines</div>
               <div class="marginalia mt-1">Most specific · CS &amp; AI Engineering</div>
             </div>
             <div class="col-span-12 sm:col-span-2 text-left sm:text-right">
-              <div class="font-mono tabular text-sm text-ink-700">23 docs</div>
+              <div class="font-mono tabular text-sm text-ink-700">~23 docs</div>
             </div>
           </div>
         </div>

@@ -1,94 +1,81 @@
 ---
 const ingestionSteps = [
-  { n: '01', title: 'Data collection', body: 'Scraped & curated 83 regulations and 495 senate decisions across 3 authorities.' },
-  { n: '02', title: 'Text preprocessing', body: 'Normalize Turkish text, segment into 3,068 chunks with metadata.' },
-  { n: '03', title: 'Knowledge graph', body: 'Extract entities & relations with an LLM into a queryable graph.' },
+  { n: '01', title: 'Data collection',     body: 'Scrape & curate 162 regulations and 500 senate decisions across 3 authorities.' },
+  { n: '02', title: 'Text preprocessing',  body: 'Normalize Turkish text, segment into 3,068 chunks with metadata.' },
+  { n: '03', title: 'Knowledge graph',     body: 'Extract entities & relations with an LLM into a queryable graph.' },
 ];
 
 const querySteps = [
-  { n: '04', title: 'Keyword extraction', body: 'Parse user query into low- and high-level search keywords.' },
+  { n: '04', title: 'Keyword extraction',  body: 'Parse user query into low- and high-level search keywords.' },
   { n: '05', title: 'Multi-modal retrieval', body: 'Naive, Local, Global, and Hybrid retrieval run in parallel.' },
-  { n: '06', title: 'Reranking', body: 'Cross-encoder reranks candidates for relevance.' },
-  { n: '07', title: 'Norm resolution', body: 'Apply hierarchical lex specialis rule to resolve conflicts.' },
-  { n: '08', title: 'Answer generation', body: 'A second LLM synthesizes a grounded answer in Turkish.' },
-  { n: '09', title: 'Output + sources', body: 'Return the answer with inline citations to source chunks.' },
+  { n: '06', title: 'Reranking',           body: 'Cross-encoder reranks candidates for relevance.' },
+  { n: '07', title: 'Norm resolution',     body: 'Apply hierarchical lex specialis rule to resolve conflicts.' },
+  { n: '08', title: 'Answer generation',   body: 'A second LLM synthesizes a grounded answer in Turkish.' },
+  { n: '09', title: 'Output + sources',    body: 'Return the answer with inline citations to source chunks.' },
 ];
 ---
 
 <section id="architecture" class="section-pad">
   <div class="container-wide">
     <!-- Section masthead -->
-    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
-      <div class="col-span-12 lg:col-span-4">
-        <div class="section-mark">¶ IV — Architecture</div>
-        <div class="caption mt-2">Two LLMs, nine stages, one truthful answer</div>
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-8">
+      <div class="col-span-12 lg:col-span-3">
+        <div class="section-mark">04 — Methodology pipeline</div>
       </div>
-      <div class="col-span-12 lg:col-span-8">
+      <div class="col-span-12 lg:col-span-9">
         <h2 class="display-lg">
-          Indexed once. <span class="italic-emph">Answered fast.</span>
+          Indexed once. Answered fast.
         </h2>
         <p class="body-lg mt-6">
-          A <strong class="text-ink">dual-LLM</strong> design separates costly graph
-          construction from latency-critical query answering. Documents are
-          indexed once; queries hit a fast retrieval pipeline.
+          A <span class="text-ink font-semibold">dual-LLM</span> design separates
+          costly graph construction from latency-critical query answering.
+          Documents are indexed once; queries hit a fast retrieval pipeline.
         </p>
       </div>
     </div>
 
     <!-- Track 1: Ingestion -->
-    <div class="reveal mt-20">
-      <div class="flex items-baseline justify-between border-b border-rule pb-4 mb-8">
+    <div class="reveal mt-2">
+      <div class="flex items-baseline justify-between border-b border-rule pb-3 mb-6">
         <div class="flex items-baseline gap-4">
-          <span class="section-mark">Track A</span>
-          <span class="font-display text-2xl text-ink">Ingestion</span>
+          <span class="section-mark">Ingestion</span>
         </div>
-        <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">Run once · Builds the graph</span>
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-500">Run once · builds the graph</span>
       </div>
 
       <div class="grid gap-px bg-rule md:grid-cols-3">
         {ingestionSteps.map((s, i) => (
-          <div class="bg-paper p-8 reveal" style={`transition-delay: ${i * 80}ms`}>
-            <div class="flex items-baseline justify-between border-b border-rule pb-3">
-              <span class="font-mono tabular text-[11px] uppercase tracking-[0.22em] text-brand">Step {s.n}</span>
-              <span class="font-mono text-[10px] tabular text-ink-400">A.{i + 1}</span>
-            </div>
-            <h4 class="mt-5 font-display text-2xl text-ink">{s.title}</h4>
-            <p class="marginalia mt-3">{s.body}</p>
+          <div class="bg-paper p-7 reveal" style={`transition-delay: ${i * 80}ms`}>
+            <div class="font-mono tabular text-[11px] uppercase tracking-[0.2em] text-brand">Step {s.n}</div>
+            <h4 class="mt-4 font-display text-lg font-semibold text-ink">{s.title}</h4>
+            <p class="marginalia mt-2">{s.body}</p>
           </div>
         ))}
       </div>
     </div>
 
-    <!-- Connector — slim editorial divider -->
-    <div class="reveal my-16 flex items-center justify-center gap-4">
+    <!-- Connector -->
+    <div class="reveal my-12 flex items-center justify-center gap-4">
       <span class="rule-h max-w-32"></span>
-      <span class="font-mono text-[11px] uppercase tracking-[0.28em] text-ink-500">indexed corpus</span>
-      <svg class="h-4 w-4 text-ink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-      <span class="font-mono text-[11px] uppercase tracking-[0.28em] text-ink-500">live queries</span>
+      <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">indexed corpus → live queries</span>
       <span class="rule-h max-w-32"></span>
     </div>
 
     <!-- Track 2: Query -->
     <div class="reveal">
-      <div class="flex items-baseline justify-between border-b border-rule pb-4 mb-8">
+      <div class="flex items-baseline justify-between border-b border-rule pb-3 mb-6">
         <div class="flex items-baseline gap-4">
-          <span class="section-mark">Track B</span>
-          <span class="font-display text-2xl text-ink">Query</span>
+          <span class="section-mark">Query</span>
         </div>
-        <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">Per question · Latency optimized</span>
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-500">Per question · latency optimized</span>
       </div>
 
       <div class="grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-3">
         {querySteps.map((s, i) => (
-          <div class="bg-paper p-8 reveal" style={`transition-delay: ${i * 60}ms`}>
-            <div class="flex items-baseline justify-between border-b border-rule pb-3">
-              <span class="font-mono tabular text-[11px] uppercase tracking-[0.22em] text-brand">Step {s.n}</span>
-              <span class="font-mono text-[10px] tabular text-ink-400">B.{i + 1}</span>
-            </div>
-            <h4 class="mt-5 font-display text-2xl text-ink">{s.title}</h4>
-            <p class="marginalia mt-3">{s.body}</p>
+          <div class="bg-paper p-7 reveal" style={`transition-delay: ${i * 60}ms`}>
+            <div class="font-mono tabular text-[11px] uppercase tracking-[0.2em] text-brand">Step {s.n}</div>
+            <h4 class="mt-4 font-display text-lg font-semibold text-ink">{s.title}</h4>
+            <p class="marginalia mt-2">{s.body}</p>
           </div>
         ))}
       </div>

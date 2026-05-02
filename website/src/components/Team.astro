@@ -1,102 +1,88 @@
 ---
-const advisor = {
-  name: 'Prof. Dr. Mehmet Önder Efe',
-  role: 'Project Advisor',
-  org: 'Hacettepe University',
-  initials: 'ME',
-};
+const advisors = [
+  {
+    name: 'Prof. Dr. Tunca Doğan',
+    role: 'Project Advisor',
+    org: 'Hacettepe University · Computer Engineering',
+    initials: 'TD',
+  },
+  {
+    name: 'Prof. Dr. Mehmet Önder Efe',
+    role: 'Project Advisor',
+    org: 'Hacettepe University · Computer Engineering',
+    initials: 'ME',
+  },
+];
 
 const members = [
-  {
-    name: 'İlhan Aras',
-    role: 'LightRAG Integration',
-    email: 'ilhanaras100@gmail.com',
-    initials: 'İA',
-  },
-  {
-    name: 'Berkay Turan',
-    role: 'Auth & Deployment',
-    email: 'turanbrkay@gmail.com',
-    initials: 'BT',
-  },
-  {
-    name: 'Muhammet Çetinalp',
-    role: 'Knowledge Graph & NLP',
-    email: 'muhammedcetinalp35@gmail.com',
-    initials: 'MÇ',
-  },
-  {
-    name: 'Ömer Faruk Güler',
-    role: 'Petition System & UI',
-    email: 'omer55glr@gmail.com',
-    initials: 'ÖG',
-  },
+  { name: 'İlhan Aras',         role: 'LightRAG Integration',      email: 'ilhanaras100@gmail.com',      initials: 'İA' },
+  { name: 'Berkay Turan',       role: 'Auth & Deployment',         email: 'turanbrkay@gmail.com',        initials: 'BT' },
+  { name: 'Muhammet Çetinalp',  role: 'Knowledge Graph & NLP',     email: 'muhammedcetinalp35@gmail.com', initials: 'MÇ' },
+  { name: 'Ömer Faruk Güler',   role: 'Petition System & UI',      email: 'omer55glr@gmail.com',         initials: 'ÖG' },
 ];
 ---
 
 <section id="team" class="section-pad">
   <div class="container-wide">
     <!-- Section masthead -->
-    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
-      <div class="col-span-12 lg:col-span-4">
-        <div class="section-mark">¶ VIII — Contributors</div>
-        <div class="caption mt-2">Senior project · 2024–2025</div>
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-8">
+      <div class="col-span-12 lg:col-span-3">
+        <div class="section-mark">07 — Team</div>
       </div>
-      <div class="col-span-12 lg:col-span-8">
+      <div class="col-span-12 lg:col-span-9">
         <h2 class="display-lg">
-          Built by <span class="italic-emph">four students</span>,
-          guided by one mentor.
+          Built by four students, guided by two advisors.
         </h2>
         <p class="body-lg mt-6">
-          Senior project at Hacettepe University · Computer Engineering &amp; AI Engineering.
+          Senior project at Hacettepe University · Department of Computer Engineering · 2024–2025.
         </p>
       </div>
     </div>
 
-    <!-- Advisor — featured row -->
-    <div class="reveal mb-px">
-      <div class="grid grid-cols-12 gap-6 bg-paper-warm border border-rule p-8 sm:p-10" style="border-radius: 2px;">
-        <div class="col-span-12 sm:col-span-3 lg:col-span-2">
-          <div class="flex h-20 w-20 items-center justify-center bg-ink text-paper font-display text-2xl" style="border-radius: 2px;">
-            {advisor.initials}
+    <!-- Advisors -->
+    <div class="grid gap-px bg-rule md:grid-cols-2">
+      {advisors.map((a, i) => (
+        <div class="bg-paper-warm p-7 sm:p-8 reveal" style={`transition-delay: ${i * 80}ms`}>
+          <div class="flex items-center gap-5">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center bg-ink text-paper font-display text-base font-semibold" style="border-radius: 4px;">
+              {a.initials}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
+                {a.role}
+              </div>
+              <div class="mt-1.5 font-display text-lg font-semibold text-ink leading-tight">
+                {a.name}
+              </div>
+              <div class="marginalia mt-1">{a.org}</div>
+            </div>
           </div>
         </div>
-        <div class="col-span-12 sm:col-span-9 lg:col-span-7">
-          <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">
-            {advisor.role}
-          </div>
-          <div class="mt-3 font-display text-3xl text-ink">{advisor.name}</div>
-          <div class="marginalia mt-1">{advisor.org}</div>
-        </div>
-        <div class="col-span-12 lg:col-span-3 lg:text-right">
-          <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">Role</div>
-          <div class="mt-2 text-sm text-ink">Supervision &amp; review</div>
-        </div>
-      </div>
+      ))}
     </div>
 
-    <!-- Members — column index, like a directory -->
+    <!-- Members -->
     <div class="grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-4 mt-px">
       {members.map((m, i) => (
-        <div class="bg-paper p-8 reveal" style={`transition-delay: ${i * 80}ms`}>
+        <div class="bg-paper p-7 reveal" style={`transition-delay: ${i * 80}ms`}>
           <div class="flex items-baseline justify-between border-b border-rule pb-3">
-            <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-500">
               Author {String(i + 1).padStart(2, '0')}
             </span>
             <span class="font-mono text-[10px] tabular text-ink-400">{m.initials}</span>
           </div>
-          <div class="mt-7 flex h-14 w-14 items-center justify-center border border-ink font-display text-lg text-ink" style="border-radius: 2px;">
+          <div class="mt-6 flex h-12 w-12 items-center justify-center border border-ink font-display text-sm font-semibold text-ink" style="border-radius: 4px;">
             {m.initials}
           </div>
-          <h3 class="mt-6 font-display text-2xl text-ink leading-tight">
+          <h3 class="mt-5 font-display text-lg font-semibold text-ink leading-tight">
             {m.name}
           </h3>
           <div class="marginalia mt-1">{m.role}</div>
           <a
             href={`mailto:${m.email}`}
-            class="mt-5 inline-flex items-center gap-2 border-b border-ink-300 pb-1 font-mono text-[11px] tabular text-ink-700 transition-colors hover:text-brand hover:border-brand"
+            class="mt-4 inline-flex items-center gap-2 border-b border-ink-300 pb-1 font-mono text-[11px] tabular text-ink-700 transition-colors hover:text-brand hover:border-brand break-all"
           >
-            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg class="h-3 w-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M4 6h16v12H4z M4 6l8 7 8-7" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
             {m.email}

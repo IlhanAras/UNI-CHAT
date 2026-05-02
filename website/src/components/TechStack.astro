@@ -1,35 +1,22 @@
 ---
 const groups = [
-  {
-    label: 'Backend',
-    items: ['Python 3.11', 'FastAPI', 'LightRAG', 'NetworkX', 'asyncio'],
-  },
-  {
-    label: 'AI / LLM',
-    items: ['Ollama', 'OpenAI', 'Gemini', 'DeepSeek', 'BGE Reranker'],
-  },
-  {
-    label: 'Frontend',
-    items: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS', 'i18next'],
-  },
-  {
-    label: 'Infrastructure',
-    items: ['Docker', 'Nginx', 'AWS EC2', 'LibreOffice', 'Bun'],
-  },
+  { label: 'Backend',        items: ['Python 3.11', 'FastAPI', 'LightRAG', 'NetworkX', 'asyncio'] },
+  { label: 'AI / LLM',       items: ['Ollama', 'OpenAI', 'Gemini', 'DeepSeek', 'BGE Reranker'] },
+  { label: 'Frontend',       items: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS', 'i18next'] },
+  { label: 'Infrastructure', items: ['Docker', 'Nginx', 'AWS EC2', 'LibreOffice', 'Bun'] },
 ];
 ---
 
 <section id="stack" class="section-pad">
   <div class="container-wide">
     <!-- Section masthead -->
-    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
-      <div class="col-span-12 lg:col-span-4">
-        <div class="section-mark">Appendix · Stack</div>
-        <div class="caption mt-2">Production tooling, no toy frameworks</div>
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-8">
+      <div class="col-span-12 lg:col-span-3">
+        <div class="section-mark">Appendix — Stack</div>
       </div>
-      <div class="col-span-12 lg:col-span-8">
+      <div class="col-span-12 lg:col-span-9">
         <h2 class="display-lg">
-          Built with <span class="italic-emph">production tools</span>.
+          Built with production tools.
         </h2>
         <p class="body-lg mt-6">
           Every piece is something you'd ship in industry — chosen for stability,
@@ -38,19 +25,19 @@ const groups = [
       </div>
     </div>
 
-    <!-- Stack columns — printed table -->
+    <!-- Stack columns -->
     <div class="grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-4">
       {groups.map((g, i) => (
-        <div class="bg-paper p-8 reveal" style={`transition-delay: ${i * 70}ms`}>
+        <div class="bg-paper p-7 reveal" style={`transition-delay: ${i * 70}ms`}>
           <div class="flex items-baseline justify-between border-b border-rule pb-3">
-            <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-brand">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
               {g.label}
             </span>
             <span class="font-mono text-[10px] tabular text-ink-400">
               {String(i + 1).padStart(2, '0')}
             </span>
           </div>
-          <ul class="mt-5 space-y-3">
+          <ul class="mt-4 space-y-2.5">
             {g.items.map((it, j) => (
               <li class="flex items-baseline gap-3 text-sm text-ink">
                 <span class="font-mono tabular text-[10px] text-ink-400 w-5">{String(j + 1).padStart(2, '0')}</span>

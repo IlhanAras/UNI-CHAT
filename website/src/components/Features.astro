@@ -1,99 +1,64 @@
 ---
 const modes = [
-  {
-    name: 'Naive',
-    desc: 'Direct vector similarity over raw chunks — the baseline.',
-    use: 'Quick keyword lookups',
-  },
-  {
-    name: 'Local',
-    desc: 'Entity-level retrieval focused on specific concepts in the graph.',
-    use: 'Targeted "what does X mean?" questions',
-  },
-  {
-    name: 'Global',
-    desc: 'Community-level summaries for broad, high-level questions.',
-    use: 'Overview queries about a regulation area',
-  },
-  {
-    name: 'Hybrid',
-    desc: 'Combines local + global signals for the best dual-context answer.',
-    use: 'Default — works for almost everything',
-  },
+  { name: 'Naive',  desc: 'Vector similarity over raw chunks — the baseline.',                  use: 'Quick keyword lookups' },
+  { name: 'Local',  desc: 'Entity-relationship retrieval focused on specific concepts.',        use: 'Targeted "what does X mean?" questions' },
+  { name: 'Global', desc: 'High-level summaries built from graph communities.',                 use: 'Overview queries about a regulation area' },
+  { name: 'Hybrid', desc: 'Local + Global — combined for the best dual-context answer.',        use: 'Default — works for almost everything' },
+  { name: 'Mix',    desc: 'Naive + Local + Global signals fused into a single response.',       use: 'Hard, multi-faceted questions' },
 ];
 
 const extras = [
-  {
-    title: 'Petition system',
-    body: 'Browse 66 official Hacettepe petition templates. Inline PDF preview powered by LibreOffice; download as editable DOCX.',
-    metric: '66 templates',
-  },
-  {
-    title: 'Dual-LLM architecture',
-    body: 'Independent providers for graph construction (cost-optimized) and chat (quality-optimized). Switch between Ollama, OpenAI, Gemini, DeepSeek without rebuilding.',
-    metric: '4 providers',
-  },
-  {
-    title: 'Incremental ingestion',
-    body: 'Hash-based change detection — only modified documents are re-processed. Add new regulations without rebuilding the entire graph.',
-    metric: 'O(Δ) updates',
-  },
-  {
-    title: 'Workspace isolation',
-    body: 'Multiple knowledge bases coexist on a single deployment. Each department or faculty can maintain its own graph.',
-    metric: 'Multi-tenant',
-  },
+  { title: 'Petition system',         body: 'Browse 66 official Hacettepe petition templates. Inline PDF preview powered by LibreOffice; download as editable DOCX.', metric: '66 templates' },
+  { title: 'Dual-LLM architecture',   body: 'Independent providers for graph construction (cost-optimized) and chat (quality-optimized). Switch between Ollama, OpenAI, Gemini, DeepSeek without rebuilding.', metric: '4 providers' },
+  { title: 'Incremental ingestion',   body: 'Hash-based change detection — only modified documents are re-processed. Add new regulations without rebuilding the entire graph.', metric: 'O(Δ) updates' },
+  { title: 'Workspace isolation',     body: 'Multiple knowledge bases coexist on a single deployment. Each department or faculty can maintain its own graph.', metric: 'Multi-tenant' },
 ];
 ---
 
 <section id="features" class="section-pad">
   <div class="container-wide">
     <!-- Section masthead -->
-    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
-      <div class="col-span-12 lg:col-span-4">
-        <div class="section-mark">¶ V — Capabilities</div>
-        <div class="caption mt-2">Retrieval modes &amp; engineering details</div>
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-8">
+      <div class="col-span-12 lg:col-span-3">
+        <div class="section-mark">05 — Capabilities</div>
       </div>
-      <div class="col-span-12 lg:col-span-8">
+      <div class="col-span-12 lg:col-span-9">
         <h2 class="display-lg">
-          Four modes. <span class="italic-emph">One unified interface.</span>
+          Five retrieval modes. One unified interface.
         </h2>
         <p class="body-lg mt-6">
           Different questions need different retrieval strategies. UNI-CHAT
-          exposes all four — plus the engineering work that makes a real
+          exposes all five — plus the engineering work that makes a real
           production system.
         </p>
       </div>
     </div>
 
-    <!-- Retrieval modes — card grid in editorial style -->
-    <div class="grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-4">
+    <!-- Retrieval modes -->
+    <div class="grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-5">
       {modes.map((m, i) => (
-        <div class="bg-paper p-8 reveal" style={`transition-delay: ${i * 60}ms`}>
-          <div class="flex items-baseline justify-between">
-            <span class="font-mono tabular text-[11px] uppercase tracking-[0.22em] text-brand">
-              Mode {String(i + 1).padStart(2, '0')}
-            </span>
-            <span class="font-mono text-[10px] tabular text-ink-400">{i + 1}/4</span>
+        <div class="bg-paper p-7 reveal" style={`transition-delay: ${i * 60}ms`}>
+          <div class="font-mono tabular text-[11px] uppercase tracking-[0.2em] text-brand">
+            Mode {String(i + 1).padStart(2, '0')}
           </div>
-          <h3 class="mt-6 font-display text-3xl text-ink">{m.name}</h3>
-          <p class="marginalia mt-3">{m.desc}</p>
-          <div class="mt-6 border-t border-rule pt-3">
-            <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">Best for</div>
+          <h3 class="mt-4 font-display text-xl font-semibold text-ink">{m.name}</h3>
+          <p class="marginalia mt-2">{m.desc}</p>
+          <div class="mt-5 border-t border-rule pt-3">
+            <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-500">Best for</div>
             <div class="mt-1 text-sm text-ink">{m.use}</div>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Engineering features — long-form list -->
-    <div class="reveal mt-24">
+    <!-- Engineering features -->
+    <div class="reveal mt-20">
       <div class="grid grid-cols-12 gap-6 border-b border-ink pb-6 mb-8">
-        <div class="col-span-12 lg:col-span-4">
-          <div class="section-mark">Engineering Notes</div>
+        <div class="col-span-12 lg:col-span-3">
+          <div class="section-mark">Engineering details</div>
         </div>
-        <div class="col-span-12 lg:col-span-8">
-          <h3 class="font-display text-3xl leading-tight text-ink sm:text-4xl">
+        <div class="col-span-12 lg:col-span-9">
+          <h3 class="font-display text-2xl font-semibold text-ink sm:text-3xl">
             What it takes to ship.
           </h3>
         </div>
@@ -101,17 +66,17 @@ const extras = [
 
       <div class="grid gap-px bg-rule md:grid-cols-2">
         {extras.map((x, i) => (
-          <div class="bg-paper p-8 sm:p-10 reveal" style={`transition-delay: ${i * 80}ms`}>
+          <div class="bg-paper p-7 sm:p-8 reveal" style={`transition-delay: ${i * 80}ms`}>
             <div class="flex items-start justify-between gap-6">
-              <div class="font-display tabular text-5xl text-ink-300 leading-none">
+              <div class="font-display tabular text-3xl font-semibold text-ink-300 leading-none">
                 {String(i + 1).padStart(2, '0')}
               </div>
-              <span class="border border-ink-200 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-700" style="border-radius: 2px;">
+              <span class="border border-ink-200 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-700" style="border-radius: 4px;">
                 {x.metric}
               </span>
             </div>
-            <h3 class="mt-6 font-display text-2xl text-ink">{x.title}</h3>
-            <p class="marginalia mt-3">{x.body}</p>
+            <h3 class="mt-5 font-display text-lg font-semibold text-ink">{x.title}</h3>
+            <p class="marginalia mt-2">{x.body}</p>
           </div>
         ))}
       </div>

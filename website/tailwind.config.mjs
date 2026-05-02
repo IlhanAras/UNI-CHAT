@@ -5,12 +5,12 @@ export default {
     extend: {
       colors: {
         paper: {
-          DEFAULT: '#F4F1E8',
-          soft: '#FAF8F1',
-          warm: '#EFEADC',
+          DEFAULT: '#FAFAF7',
+          soft: '#FFFFFF',
+          warm: '#F2F1ED',
         },
         ink: {
-          DEFAULT: '#0E0E0E',
+          DEFAULT: '#111111',
           900: '#1A1A1A',
           800: '#2A2A2A',
           700: '#404040',
@@ -21,28 +21,28 @@ export default {
           200: '#D9D5C9',
           100: '#E8E4D8',
         },
-        rule: '#D9D5C9',
+        rule: '#E2DED4',
         brand: {
-          DEFAULT: '#8B0020',
-          soft: '#A8002A',
-          ink: '#5A0014',
+          DEFAULT: '#A8002A',
+          soft: '#C72547',
+          ink: '#7A001E',
         },
       },
       fontFamily: {
-        display: ['"Instrument Serif"', 'Georgia', 'serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
-        tightest: '-0.04em',
+        tightest: '-0.03em',
       },
       animation: {
-        'fade-up': 'fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both',
-        'fade-in': 'fadeIn 1s ease-out both',
+        'fade-up': 'fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both',
+        'fade-in': 'fadeIn 0.8s ease-out both',
       },
       keyframes: {
         fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         fadeIn: {

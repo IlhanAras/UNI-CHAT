@@ -1,55 +1,71 @@
 ---
 const stats = [
   {
-    value: '83',
-    label: 'Regulatory documents',
-    desc: 'Spread across departmental, university, and national authorities.',
+    value: '162',
+    label: 'Documents',
+    desc: 'Departmental, university, and YÖK regulations.',
   },
   {
-    value: '495',
+    value: '500',
     label: 'Senate decisions',
-    desc: 'Issued 2012 – 2026 — each can override or amend prior rules.',
+    desc: 'Weekly minutes that amend or override prior rules.',
   },
   {
-    value: '∞',
-    label: 'Conflicts to resolve',
-    desc: 'Lower-scope norms can override broader regulations on specific cases.',
+    value: '66',
+    label: 'Petition templates',
+    desc: 'Official forms, each tied to its own filing rules.',
   },
+];
+
+const consequences = [
+  'Missed deadlines',
+  'Incorrect petitions',
+  'Legally inconsistent guidance',
 ];
 ---
 
 <section id="problem" class="section-pad">
   <div class="container-wide">
     <!-- Section masthead -->
-    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-10">
-      <div class="col-span-12 lg:col-span-4">
-        <div class="section-mark">¶ I — The Problem</div>
-        <div class="caption mt-2">A note on the nature of the corpus</div>
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-8">
+      <div class="col-span-12 lg:col-span-3">
+        <div class="section-mark">01 — Problem statement</div>
       </div>
-      <div class="col-span-12 lg:col-span-8">
+      <div class="col-span-12 lg:col-span-9">
         <h2 class="display-lg">
-          Regulations are <span class="italic-emph">scattered</span>,
-          and frequently <span class="italic-emph">contradictory</span>.
+          Academic regulations are scattered across three hierarchical levels.
         </h2>
         <p class="body-lg mt-6">
-          A student looking for a definitive answer must read dozens of PDFs
-          across multiple authorities — and even then, conflicts between rules
-          leave them guessing which one applies.
+          National laws (YÖK), university senate decisions, and faculty
+          guidelines all overlap. Students, faculty, and administrative staff
+          must navigate <span class="text-ink font-semibold">162 documents</span>,
+          <span class="text-ink font-semibold">66 petition templates</span>, and
+          <span class="text-ink font-semibold">500 senate decisions</span>
+          to find accurate answers.
         </p>
+        <p class="body-lg mt-4">
+          Existing search tools and general-purpose LLMs fail to capture this
+          structure — leading to:
+        </p>
+        <ul class="mt-4 grid gap-2 sm:grid-cols-3">
+          {consequences.map((c) => (
+            <li class="flex items-center gap-2.5 text-sm text-ink">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand"></span>
+              {c}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
 
-    <!-- Stat table -->
+    <!-- Stat row -->
     <div class="grid grid-cols-1 md:grid-cols-3">
       {stats.map((s, i) => (
         <div class={`reveal border-b border-rule p-8 md:py-12 md:px-10 ${i < 2 ? 'md:border-r' : ''}`} style={`transition-delay: ${i * 80}ms`}>
-          <div class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">
-            Figure {String(i + 1).padStart(2, '0')}
-          </div>
-          <div class="mt-4 font-display tabular text-7xl text-ink leading-none">
+          <div class="font-display tabular text-6xl font-semibold text-ink leading-none">
             {s.value}
           </div>
-          <div class="mt-6 font-display text-xl text-ink">
+          <div class="mt-5 font-display text-lg font-semibold text-ink">
             {s.label}
           </div>
           <div class="marginalia mt-2">
@@ -57,27 +73,6 @@ const stats = [
           </div>
         </div>
       ))}
-    </div>
-
-    <!-- Pull quote — editorial centerpiece -->
-    <div class="reveal mt-24 grid grid-cols-12 gap-6">
-      <div class="col-span-12 lg:col-span-2">
-        <div class="section-mark">Field Note</div>
-        <div class="caption mt-2">From a real student</div>
-      </div>
-      <div class="col-span-12 lg:col-span-9 lg:col-start-3">
-        <blockquote class="font-display text-3xl leading-tight text-ink sm:text-5xl">
-          <span class="italic-emph">“</span>Which rule wins — the
-          department's internship guideline, the university's general
-          regulation, or the YÖK directive?<span class="italic-emph">”</span>
-        </blockquote>
-        <div class="mt-8 flex items-center gap-4">
-          <span class="rule-h max-w-12"></span>
-          <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">
-            Without a system that understands legal hierarchy, the answer is buried in 200+ pages of dense Turkish legalese.
-          </span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
