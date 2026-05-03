@@ -1,0 +1,138 @@
+---
+const base = import.meta.env.BASE_URL;
+
+// Combined first item: retrieval answer + modes dropdown shown together
+const tourItems = [
+  {
+    n: '01',
+    title: 'Ask in Turkish — get a sourced answer',
+    body: 'Questions are asked in plain Turkish. Every answer is bound to the exact source chunks it was drawn from — each claim shows the originating PDF and section reference. No hallucinations: every fact is traceable.',
+    imgs: [
+      { src: '01-retrieval-answer.png', alt: 'UNI-CHAT chat answering a Turkish question about internship duration with source citations' },
+      { src: '02-retrieval-modes.png',  alt: 'Query mode dropdown showing Naive, Local, Global, Hybrid and Mix retrieval strategies', narrow: true },
+    ],
+    tag: 'Retrieval',
+    layout: 'split',
+  },
+  {
+    n: '02',
+    title: 'The corpus as a navigable map',
+    body: 'Entities and relations extracted from 162 documents form a queryable knowledge graph. Each node is a concept (a regulation, a course, an authority); each edge is a reference, override, or dependency. Lookup, filter, and navigate the same structure the retrieval pipeline uses.',
+    imgs: [{ src: '03-knowledge-graph.png', alt: 'Knowledge graph viewer showing nodes for regulations and edges between them' }],
+    tag: 'Knowledge graph',
+    layout: 'wide',
+  },
+  {
+    n: '03',
+    title: 'Every source, hash-tracked',
+    body: 'Every document carries an upload time, a content hash, and a status. When a regulation changes, only its chunks are re-processed — the rest of the graph stays intact. The pipeline reports completed, processing, pending, and failed states per file.',
+    imgs: [{ src: '04-documents.png', alt: 'Documents manager listing all indexed files with status, length, chunks and update timestamps' }],
+    tag: 'Documents',
+    layout: 'wide',
+  },
+  {
+    n: '04',
+    title: '14 years of weekly senate minutes',
+    body: 'Every published senate decision since 2012 is browsable, searchable by date, and previewable in-app. When a recent decision overrides an older regulation, the system surfaces the governing one during retrieval — not just the most relevant one.',
+    imgs: [{ src: '05-senato-panel.png', alt: 'Senate decisions panel showing dated minutes with preview, download, and re-index controls' }],
+    tag: 'Senate decisions',
+    layout: 'wide',
+  },
+  {
+    n: '05',
+    title: 'Browse, preview, download — 66 official forms',
+    body: 'The full Hacettepe petition catalogue is accessible from the same interface. Filter by category (Akademik, Askerlik, Lisansüstü, Staj, Sınav, …), preview the form inline, then export a ready-to-fill DOCX. No more hunting across faculty pages.',
+    imgs: [{ src: '06-petitions.png', alt: 'Petitions and forms grid showing 66 official Hacettepe templates with category filters and preview/download actions' }],
+    tag: 'Petitions',
+    layout: 'wide',
+  },
+];
+---
+
+<section id="tour" class="section-pad">
+  <div class="container-wide">
+    <!-- Section masthead -->
+    <div class="reveal grid grid-cols-12 gap-6 border-b border-ink pb-8">
+      <div class="col-span-12 lg:col-span-3">
+        <div class="section-mark">06 — Product tour</div>
+      </div>
+      <div class="col-span-12 lg:col-span-9">
+        <h2 class="display-lg">
+          See it in practice.
+        </h2>
+        <p class="body-lg mt-6">
+          A graph-based RAG system isn't an abstract diagram — it's a tool
+          people actually use. Here is what UNI-CHAT looks like end-to-end,
+          from the chat that answers a regulation question to the panels
+          that manage the corpus behind it.
+        </p>
+      </div>
+    </div>
+
+    <!-- Tour items -->
+    <div class="space-y-20 sm:space-y-28 mt-16">
+      {tourItems.map((item, idx) => {
+        const flip = idx % 2 === 1;
+        return (
+          <article class="reveal grid grid-cols-12 gap-x-8 gap-y-8 items-start">
+            <!-- Text column -->
+            <div class={`col-span-12 lg:col-span-4 ${flip ? 'lg:col-start-9 lg:row-start-1' : ''}`}>
+              <div class="font-mono tabular text-[11px] uppercase tracking-[0.2em] text-brand">
+                Step {item.n} · {item.tag}
+              </div>
+              <h3 class="mt-5 font-display text-2xl font-semibold text-ink leading-tight sm:text-3xl">
+                {item.title}
+              </h3>
+              <p class="marginalia mt-4">
+                {item.body}
+              </p>
+            </div>
+
+            <!-- Image column -->
+            <div class={`col-span-12 lg:col-span-8 ${flip ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+              {item.layout === 'split' ? (
+                <div class="grid grid-cols-12 gap-3 sm:gap-4">
+                  <figure class="col-span-12 sm:col-span-8 border border-rule bg-paper-soft overflow-hidden" style="border-radius: 4px;">
+                    <img
+                      src={`${base}screenshots/${item.imgs[0].src}`}
+                      alt={item.imgs[0].alt}
+                      loading="lazy"
+                      decoding="async"
+                      class="block w-full h-auto"
+                    />
+                  </figure>
+                  <figure class="col-span-12 sm:col-span-4 border border-rule bg-paper-soft overflow-hidden" style="border-radius: 4px;">
+                    <img
+                      src={`${base}screenshots/${item.imgs[1].src}`}
+                      alt={item.imgs[1].alt}
+                      loading="lazy"
+                      decoding="async"
+                      class="block w-full h-auto"
+                    />
+                  </figure>
+                </div>
+              ) : (
+                <figure class="border border-rule bg-paper-soft overflow-hidden" style="border-radius: 4px;">
+                  <img
+                    src={`${base}screenshots/${item.imgs[0].src}`}
+                    alt={item.imgs[0].alt}
+                    loading="lazy"
+                    decoding="async"
+                    class="block w-full h-auto"
+                  />
+                </figure>
+              )}
+
+              <!-- Caption -->
+              <figcaption class="mt-3 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-500">
+                <span>Fig. {item.n}</span>
+                <span class="rule-h max-w-12"></span>
+                <span>{item.tag}</span>
+              </figcaption>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
